@@ -35,6 +35,7 @@ let
     lynx                 # console based web client
     ncdu                 # disk space info (a better 'du')
     ncurses              # fancy console library
+    neofetch             # system info
     ngrok                # secure tunneling to localhost
     nix-index            # locate packages containing certain nixpkgs
     nyancat              # the famous rainbox cat

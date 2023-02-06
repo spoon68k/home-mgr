@@ -10,7 +10,7 @@
       core = {
         autocrlf = "false";
       };
-      credentials = {
+      credential = {
         helper = "store";
       };
     };

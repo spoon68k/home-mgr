@@ -2,7 +2,7 @@
 
   programs.git = {
     enable = true;
-    userName = builtins.trace settings.git.user settings.git.user;
+    userName = settings.git.user;
     userEmail = settings.git.email;
 
     extraConfig = {

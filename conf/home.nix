@@ -50,7 +50,7 @@ let
     tldr                 # summary of a manpage
     tmux                 # terminal multiplexer
     tree                 # display files in a tree
-    wget                 # weg client
+    wget                 # web client
   ];
 
   programs = (map import [

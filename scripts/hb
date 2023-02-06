@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+ARCH="$(uname -m | tr 'A-Z' 'a-z')-$(uname -s | tr 'A-Z' 'a-z')"
+HOST="$(hostname -s | tr 'A-Z' 'a-z')"
+
+if [ -z "$XDG_CONFIG_HOME" ]; then
+  echo "XDG_CONFIG_HOME is not set" >&2
+  exit 1
+fi
+
+if [ -z "$HOME_MGR" ]; then
+  echo "HOME_MGR is not set" >&2
+  exit 1
+fi
+
+rm -f "$XDG_CONFIG_HOME/gitui/theme.ron"
+cd "$HOME_MGR"
+
+nix build --impure ".#homeConfigurations.$ARCH.$HOST.activationPackage" && result/activate

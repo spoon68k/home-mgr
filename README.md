@@ -1,2 +1,3 @@
-# home-mgr
-Dotfiles organised by Nix and Home-Manager
+# Home-Mgr
+
+This repository is for managing my dotfiles, scripts and program setups using Nix and Home-Manager.

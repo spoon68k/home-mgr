@@ -3,7 +3,7 @@
 let
   username = settings.username;
   homeDirectory = "/home/${username}";
-  homeMgrDirectory = "${homeDirectory}/workspace/home-mgr";
+  homeMgrDirectory = "${homeDirectory}/Workspace/home-mgr";
   configHome = "${homeDirectory}/.config";
 
   defaultPkgs = with pkgs; [
@@ -28,8 +28,10 @@ let
     protobuf             # protobuf compiler
     qrencode             # qr-code generator
     killall              # kill processes by name
+    kubecm               # kube config manager
     kubectl              # kubernetes control
     kubectx              # tool for switching contexts and namespaces
+    kubernetes-helm      # helm
     lnav                 # log file navigator on the terminal
     lsd                  # a better 'ls'
     lynx                 # console based web client
@@ -48,6 +50,7 @@ let
     ripgrep              # fast grep
     rmlint               # file cruft removal tool
     rsync                # file sync tool
+    strace               # system trace tool
     tldr                 # summary of a manpage
     tmux                 # terminal multiplexer
     tree                 # display files in a tree
@@ -64,7 +67,7 @@ let
     ../programs/htop.nix
     ../programs/jq.nix
     ../programs/k9s.nix
-    ../programs/neovim-ide.nix
+    ../programs/nixvim.nix
     ../programs/starship.nix
     ../programs/tmux.nix
     ../programs/zoxide.nix

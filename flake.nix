@@ -16,8 +16,8 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     # Neovim-Flake is an awesome prepackage of neovim goodness
-    neovim-flake = {
-      url = "github:spoon68k/neovim-flake";
+    nix-vim = {
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -34,7 +34,7 @@
     };
   };
 
-  outputs = { flake-utils, nixpkgs, nurpkgs, homeage, neovim-flake, home-manager, nix-colors, ... }: 
+  outputs = { flake-utils, nixpkgs, nurpkgs, homeage, nix-vim, home-manager, nix-colors, ... }: 
 
     flake-utils.lib.eachDefaultSystem (system: let
 
@@ -48,7 +48,8 @@
 
       imports = [
         nix-colors.homeManagerModule
-        neovim-flake.nixosModules.${pkgs.system}.hm
+        #neovim-flake.nixosModules.${pkgs.system}.hm
+        nix-vim.homeManagerModules.nixvim
         homeage.homeManagerModules.homeage
         conf/home.nix
       ];

@@ -16,7 +16,7 @@
   };
 
   home.sessionVariables = {
-    SHELL = "~/.nix-profile/bin/zsh";
+    SHELL = "${pkgs.zsh}/bin/zsh";
   };
 
 }

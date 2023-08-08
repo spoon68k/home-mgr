@@ -39,6 +39,7 @@ let
     ncurses              # fancy console library
     neofetch             # system info
     ngrok                # secure tunneling to localhost
+    nil			 # Nix language services
     nix-index            # locate packages containing certain nixpkgs
     nyancat              # the famous rainbox cat
     most                 # fancy more (or less)

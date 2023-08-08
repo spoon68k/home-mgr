@@ -7,15 +7,27 @@
 
     plugins.lightline.enable = true;
     plugins.telescope.enable = true;
-    plugins.nvim-tree.enable = true;
-    plugins.treesitter.enable = true;
+
+    plugins.treesitter = {
+      enable = true;
+      indent = true;
+    };
+
+    plugins.nvim-tree = {
+      enable = true;
+      view = {
+	side = "right";
+	width = {
+	  min = 30;
+	};
+      };
+    };
 
     plugins.lsp = {
       enable = true;
       enabledServers = [ "nil_ls" "pyright" ];
       keymaps.lspBuf = {
 	"gd" = "definition";
-#	"gr" = "references";
 	"gt" = "type_definition";
 	"gi" = "implementation";
 	"R"  = "rename";
@@ -67,13 +79,17 @@
       };
       normal."<leader>l" = {
 	silent = true;
+	action = "<cmd>NvimTreeFindFile<CR>";
+      };
+      normal."<C-b>" = {
+	silent = true;
 	action = "<cmd>Telescope buffers<CR>";
       };
-      normal."<C-s>" = {
+      normal."<C-f>" = {
 	silent = true;
 	action = "<cmd>Telescope find_files<CR>";
       };
-      normal."<C-f>" = {
+      normal."<C-g>" = {
 	silent = true;
 	action = "<cmd>Telescope live_grep<CR>";
       };

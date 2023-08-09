@@ -8,6 +8,12 @@
     plugins.lightline.enable = true;
     plugins.telescope.enable = true;
 
+    plugins.toggleterm = {
+      enable = true;
+      direction = "float";
+      openMapping = "<C-t>";
+    };
+
     plugins.treesitter = {
       enable = true;
       indent = true;
@@ -81,6 +87,14 @@
 	silent = true;
 	action = "<cmd>NvimTreeFindFile<CR>";
       };
+      normal."<A-S-Up>" = {
+	silent = true;
+	action = "<cmd>m .-2<CR>";
+      };
+      normal."<A-S-Down>" = {
+	silent = true;
+	action = "<cmd>m .+1<CR>";
+      };
       normal."<C-b>" = {
 	silent = true;
 	action = "<cmd>Telescope buffers<CR>";
@@ -96,6 +110,10 @@
       normal."<leader>gr" = {
 	silent = true;
 	action = "<cmd>Telescope lsp_references<CR>";
+      };
+      terminal."<Esc>" = {
+	silent = true;
+	action = "<C-\\><C-n>";
       };
     };
   };

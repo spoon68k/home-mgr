@@ -9,6 +9,7 @@ let
   defaultPkgs = with pkgs; [
     ack                  # Replacement for grep
     any-nix-shell        # zsh support for nix shell
+    ansible              # System automation
     bottom               # alternative to htop and ytop ('btm')
     btop                 # another cool htop alternative
     cachix               # nix caching

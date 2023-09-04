@@ -111,7 +111,17 @@
 	silent = true;
 	action = "<cmd>Telescope lsp_references<CR>";
       };
+      normal."<leader>gd" = {
+	silent = true;
+	action = "<cmd>Telescope diagnostics<CR>";
+      };
+      normal."<leader>/" = {
+	# Clear selection
+	silent = true;
+	action = "<cmd>noh<CR>";
+      };
       terminal."<Esc>" = {
+	# Allow escape button to close the terminal
 	silent = true;
 	action = "<C-\\><C-n>";
       };

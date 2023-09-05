@@ -41,6 +41,10 @@
       };
     };
 
+    plugins.nvim-jdtls = {
+      enable = false;
+    };
+
     plugins.nvim-cmp = {
       enable = true;
       sources = [

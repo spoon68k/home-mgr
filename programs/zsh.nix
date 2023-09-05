@@ -11,8 +11,11 @@ in {
       size = 1000;
     };
     loginExtra = ''
-      if ! pgrep -q -x "ssh-agent"; then
-	eval $(ssh-agent)
+
+      eval $(ssh-agent) 1>/dev/null
+
+      if [ -f ~/.ssh/${username}.key ]; then
+	ssh-add ~/.ssh/${username}.key 1>/dev/null 2>&1
       fi
 
       any-nix-shell zsh --info-right | source /dev/stdin

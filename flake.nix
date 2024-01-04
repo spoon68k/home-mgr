@@ -51,7 +51,7 @@
         #neovim-flake.nixosModules.${pkgs.system}.hm
         nix-vim.homeManagerModules.nixvim
         homeage.homeManagerModules.homeage
-        conf/home.nix
+        ./home.nix
       ];
 
       mkHome = settings:

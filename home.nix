@@ -3,7 +3,7 @@
 let
   username = settings.username;
   homeDirectory = "/home/${username}";
-  homeMgrDirectory = "${homeDirectory}/Workspace/home-mgr";
+  homeMgrDirectory = "${homeDirectory}/workspace/home-mgr";
   configHome = "${homeDirectory}/.config";
 
   defaultPkgs = with pkgs; [
@@ -26,7 +26,6 @@ let
     git                  # ubiqitious version control system
     glow                 # terminal markdown viewer
     hyperfine            # command line benchmarking tool
-    protobuf             # protobuf compiler
     qrencode             # qr-code generator
     killall              # kill processes by name
     kubecm               # kube config manager
@@ -56,28 +55,30 @@ let
     tldr                 # summary of a manpage
     tmux                 # terminal multiplexer
     tree                 # display files in a tree
+    unzip                # decompression tool
     wget                 # web client
+    zip                  # compression tool
   ];
 
   programs = (map import [
-    ../programs/bat.nix
-    ../programs/direnv.nix
-    ../programs/fzf.nix
-    ../programs/gh.nix
-    ../programs/git.nix
-    ../programs/gitui.nix
-    ../programs/htop.nix
-    ../programs/jq.nix
-    ../programs/k9s.nix
-    ../programs/nixvim.nix
-    ../programs/starship.nix
-    ../programs/tmux.nix
-    ../programs/zoxide.nix
-    ../programs/zsh.nix
+    ./programs/bat.nix
+    ./programs/direnv.nix
+    ./programs/fzf.nix
+    ./programs/gh.nix
+    ./programs/git.nix
+    ./programs/gitui.nix
+    ./programs/htop.nix
+    ./programs/jq.nix
+    ./programs/k9s.nix
+    ./programs/neovim.nix
+    ./programs/starship.nix
+    ./programs/tmux.nix
+    ./programs/zoxide.nix
+    ./programs/zsh.nix
   ]);
 
   scripts = [
-    (pkgs.writeScriptBin "hb" (builtins.readFile ../scripts/hb))
+    (pkgs.writeScriptBin "hb" (builtins.readFile ./scripts/hb))
   ];
 
 in {

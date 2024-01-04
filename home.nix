@@ -7,20 +7,16 @@ let
   configHome = "${homeDirectory}/.config";
 
   defaultPkgs = with pkgs; [
-    ack                  # Replacement for grep
     any-nix-shell        # zsh support for nix shell
     ansible              # System automation
     bottom               # alternative to htop and ytop ('btm')
-    btop                 # another cool htop alternative
-    cachix               # nix caching
-    coreutils            # basic gnu binaries
+    coreutil             # basic gnu binaries
     cowsay               # say hi with cows
     dig                  # dns command line tool
     docker               # container manager
     docker-compose       # container orchestration manager
     dive                 # explore docker layers
     duf                  # disk usage/free utility
-    exa                  # another 'ls' alternative
     fd                   # faster find for files
     feh                  # image viewer
     git                  # ubiqitious version control system
@@ -39,11 +35,10 @@ let
     ncurses              # fancy console library
     neofetch             # system info
     ngrok                # secure tunneling to localhost
-    nil			 # Nix language services
+    nil                  # Nix language services
     nix-index            # locate packages containing certain nixpkgs
     nyancat              # the famous rainbox cat
     most                 # fancy more (or less)
-    pgcli                # postgres client
     prettyping           # a nicer 'ping'
     pv                   # pipe progress monitor
     rage                 # encryption tool for secrets management
@@ -70,7 +65,7 @@ let
     ./programs/htop.nix
     ./programs/jq.nix
     ./programs/k9s.nix
-    ./programs/neovim.nix
+    ./programs/nixvim.nix
     ./programs/starship.nix
     ./programs/tmux.nix
     ./programs/zoxide.nix
@@ -119,7 +114,6 @@ in {
 
     shellAliases = {
       du     = "ncdu --color dark -rr -x";
-      grep   = "ack";
       js     = "jq .";
       l      = "lsd -lah";
       la     = "lsd -lAh";

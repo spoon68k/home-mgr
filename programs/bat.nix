@@ -3,7 +3,7 @@
   programs.bat = {
     enable = true;
     config = {
-      theme = "TwoDark";
+      theme = "DarkNeon";
       style = "numbers,changes,header,grid";
       italic-text = "always";
       pager = "less -F";
@@ -11,7 +11,7 @@
   };
 
   home.shellAliases = {
-    cat = "bat";
+    cat = "bat --theme=DarkNeon";
   };
 
 }

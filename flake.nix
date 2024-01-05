@@ -15,11 +15,8 @@
     # Modules and schemes to make theming with Nix awesome
     nix-colors.url = "github:misterio77/nix-colors";
 
-    # Neovim-Flake is an awesome prepackage of neovim goodness
-    nix-vim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Neovim Nix support
+    nixneovim.url = "github:nixneovim/nixneovim";
 
     # Manager for dotfiles
     home-manager = {
@@ -34,7 +31,7 @@
     };
   };
 
-  outputs = { flake-utils, nixpkgs, nurpkgs, homeage, nix-vim, home-manager, nix-colors, ... }: 
+  outputs = { flake-utils, nixpkgs, nurpkgs, homeage, nixneovim, home-manager, nix-colors, ... }: 
 
     flake-utils.lib.eachDefaultSystem (system: let
 
@@ -43,13 +40,13 @@
         config.allowUnfree = true;
         overlays = [
           nurpkgs.overlay
+	  nixneovim.overlays.default
         ];
       };
 
       imports = [
         nix-colors.homeManagerModule
-        #neovim-flake.nixosModules.${pkgs.system}.hm
-        nix-vim.homeManagerModules.nixvim
+        nixneovim.nixosModules.default
         homeage.homeManagerModules.homeage
         ./home.nix
       ];

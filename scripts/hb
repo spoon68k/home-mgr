@@ -14,6 +14,6 @@ if [ -z "$HOME_MGR" ]; then
 fi
 
 rm -f "$XDG_CONFIG_HOME/gitui/theme.ron"
-cd "$HOME_MGR"
 
+cd "$HOME_MGR"
 nix build --impure ".#homeConfigurations.$ARCH.$HOST.activationPackage" && result/activate

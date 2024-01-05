@@ -10,7 +10,7 @@ let
     any-nix-shell        # zsh support for nix shell
     ansible              # System automation
     bottom               # alternative to htop and ytop ('btm')
-    coreutil             # basic gnu binaries
+    coreutils            # basic gnu binaries
     cowsay               # say hi with cows
     dig                  # dns command line tool
     docker               # container manager
@@ -65,7 +65,7 @@ let
     ./programs/htop.nix
     ./programs/jq.nix
     ./programs/k9s.nix
-    ./programs/nixvim.nix
+    ./programs/nixneovim.nix
     ./programs/starship.nix
     ./programs/tmux.nix
     ./programs/zoxide.nix
@@ -79,15 +79,6 @@ let
 in {
 
   programs.home-manager.enable = true;
-
-#  homeage = {
-#    identityPaths = [ "~/.age/key.txt" ];
-#    installationType = "activation";
-#    file."stuff" = {
-#      source = ./stuff.age;
-#      symlinks = [ "${configHome}/stuff.txt" ];
-#    };
-#  };
 
   imports = programs;
 

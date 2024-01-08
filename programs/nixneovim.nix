@@ -56,7 +56,34 @@
                     action = "'<cmd>Telescope live_grep<CR>'";
                     silent = true;
                 };
+                "<leader>zn" = {
+                    action = "'<cmd>ZkNew { dir = vim.fn.expand(\\'%:p:h\\'), title = vim.fn.input(\\'Title: \\') }<CR>'";
+                    silent = true;
+                };
+                "<leader>zb" = {
+                    action = "'<Cmd>ZkBacklinks<CR>'";
+                    silent = true;
+                };
+                "<leader>zl" = {
+                    action = "'<Cmd>ZkLinks<CR>'";
+                    silent = true;
+                };
             };
+
+            visual = {
+                "<leader>znt" = {
+                    action = "':\\'<,\\'>ZkNewFromTitleSelection { dir = vim.fn.expand(\\'%:p:h\\') }<CR>'";
+                    silent = true;
+                };
+                "<leader>znc" = {
+                    action = "':\\'<,\\'>ZkNewFromContentSelection { dir = vim.fn.expand(\\'%:p:h\\'), title = vim.fn.input(\\'Title: \\') }<CR>;'";
+                    silent = true;
+                };
+                "<leader>za" = {
+                    action = "':\\'<,\\'>lua vim.lsp.buf.range_code_action()<CR>'";
+                    silent = true;
+                };
+             };
 
             normalVisualOp = {
                 "Y" = "'Y'";
@@ -139,8 +166,9 @@
                 indent = true;
             };
 
-            vimwiki = {
+            zk = {
                 enable = true;
+                picker = "telescope";
             };
 
        };
@@ -151,6 +179,7 @@
 
         extraConfigVim = ''
             lua << EOF
+
                 require("toggleterm").setup {
                     open_mapping = [[<C-t>]],
                     direction = "float"
@@ -165,14 +194,16 @@
                         end
 
                         bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-                        bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-                        bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+                        bufmap('n', '<CR>', '<cmd>lua vim.lsp.buf.definition()<cr>')
+                        bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<cr>')
                         bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
                         bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
                         bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
                         bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+                        bufmap('n', 'gS', '<cmd>Telescope lsp_document_symbols<cr>')
                         bufmap('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<cr>')
                         bufmap('n', 'gA', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+                        bufmap('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<cr>')
                         bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
                         bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
                         bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')

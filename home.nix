@@ -3,7 +3,7 @@
 let
   username = settings.username;
   homeDirectory = "/home/${username}";
-  homeMgrDirectory = "${homeDirectory}/workspace/home-mgr";
+  workspace = "${homeDirectory}/workspace";
   configHome = "${homeDirectory}/.config";
 
   defaultPkgs = with pkgs; [
@@ -53,6 +53,7 @@ let
     unzip                # decompression tool
     wget                 # web client
     zip                  # compression tool
+    zk                   # zettelkasten tool
   ];
 
   programs = (map import [
@@ -100,7 +101,8 @@ in {
       DISPLAY = ":0";
       LANG = "en_GB.UTF-8";
       PAGER = "";
-      HOME_MGR = "${homeMgrDirectory}";
+      HOME_MGR = "${workspace}/home-mgr";
+      ZK_NOTEBOOK_DIR = "${workspace}/zk";
     };
 
     shellAliases = {

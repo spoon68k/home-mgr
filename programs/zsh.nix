@@ -15,7 +15,7 @@ in {
       eval $(ssh-agent) 1>/dev/null
 
       if [ -f ~/.ssh/${username}.key ]; then
-	ssh-add ~/.ssh/${username}.key 1>/dev/null 2>&1
+        ssh-add ~/.ssh/${username}.key 1>/dev/null 2>&1
       fi
 
       any-nix-shell zsh --info-right | source /dev/stdin

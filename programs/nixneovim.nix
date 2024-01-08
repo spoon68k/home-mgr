@@ -12,6 +12,7 @@
             tabstop = 4;
             cursorline = true;
             cursorcolumn = true;
+            conceallevel = 2;
         };
 
         globals = {
@@ -66,6 +67,10 @@
                 };
                 "<leader>zl" = {
                     action = "'<Cmd>ZkLinks<CR>'";
+                    silent = true;
+                };
+                "<leader>zz" = {
+                    action = "'<cmd>Telescope zk notes<CR>'";
                     silent = true;
                 };
             };
@@ -175,6 +180,7 @@
 
         extraPlugins = [
             pkgs.vimExtraPlugins.nvim-toggleterm-lua
+            pkgs.vimExtraPlugins.auto-save-nvim
         ];
 
         extraConfigVim = ''
@@ -183,6 +189,10 @@
                 require("toggleterm").setup {
                     open_mapping = [[<C-t>]],
                     direction = "float"
+                };
+
+                require("auto-save").setup {
+                    enable = true;
                 };
 
                 vim.api.nvim_create_autocmd('LspAttach', {

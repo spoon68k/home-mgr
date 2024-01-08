@@ -1,6 +1,6 @@
 #!/bin/sh
 
 export XDG_CONFIG_HOME=$HOME/.config
-export HOME_MGR=$HOME/Workspace/home-mgr
+export HOME_MGR=$HOME/workspace/home-mgr
 
 sh scripts/hb

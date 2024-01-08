@@ -101,6 +101,7 @@ in {
       DISPLAY = ":0";
       LANG = "en_GB.UTF-8";
       PAGER = "";
+      EDITOR = "nvim";
       HOME_MGR = "${workspace}/home-mgr";
       ZK_NOTEBOOK_DIR = "${workspace}/zk";
     };
@@ -116,6 +117,7 @@ in {
       k      = "kubectl";
       ping   = "prettyping";
       tree   = "exa -T";
+      zz     = "nvim ${workspace}/zk/init.md";
       ".."   = "cd ..";
     };
   };

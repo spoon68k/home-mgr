@@ -29,7 +29,19 @@
         mappings = {
 
             normal = {
-                "<leader>/" = {
+                "<C-b>" = {
+                    action = "'<cmd>Telescope buffers<CR>'";
+                    silent = true;
+                };
+                "<C-f>" = {
+                    action = "'<cmd>Telescope find_files<CR>'";
+                    silent = true;
+                };
+                "<C-g>" = {
+                    action = "'<cmd>Telescope live_grep<CR>'";
+                    silent = true;
+                };
+                 "<leader>/" = {
                     action = "'<cmd>noh<CR>'";
                     silent = true;
                 };
@@ -45,16 +57,16 @@
                     action = "'<cmd>Telescope<CR>'";
                     silent = true;
                 };
-                "<C-b>" = {
-                    action = "'<cmd>Telescope buffers<CR>'";
+                "<leader>hm" = {
+                    action = "'<cmd>lua require(\\'harpoon.mark\\').add_file()<CR>'";
                     silent = true;
                 };
-                "<C-f>" = {
-                    action = "'<cmd>Telescope find_files<CR>'";
+                "<leader>hh" = {
+                    action = "'<cmd>lua require(\\'harpoon.ui\\').nav_next()<CR>'";
                     silent = true;
                 };
-                "<C-g>" = {
-                    action = "'<cmd>Telescope live_grep<CR>'";
+                "<leader>hv" = {
+                    action = "'<cmd>Telescope harpoon marks<CR>'";
                     silent = true;
                 };
                 "<leader>zn" = {
@@ -71,6 +83,10 @@
                 };
                 "<leader>zz" = {
                     action = "'<cmd>Telescope zk notes<CR>'";
+                    silent = true;
+                };
+                 "<leader>zi" = {
+                    action = "'<cmd>e init.md<CR>'";
                     silent = true;
                 };
             };
@@ -181,6 +197,7 @@
         extraPlugins = [
             pkgs.vimExtraPlugins.nvim-toggleterm-lua
             pkgs.vimExtraPlugins.auto-save-nvim
+            pkgs.vimExtraPlugins.harpoon
         ];
 
         extraConfigVim = ''
@@ -194,6 +211,8 @@
                 require("auto-save").setup {
                     enable = true;
                 };
+
+                require("telescope").load_extension('harpoon');
 
                 vim.api.nvim_create_autocmd('LspAttach', {
                     desc = 'LSP actions',

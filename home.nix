@@ -4,6 +4,7 @@ let
   username = settings.username;
   homeDirectory = "/home/${username}";
   workspace = "${homeDirectory}/workspace";
+  notebook = "${workspace}/zk";
   configHome = "${homeDirectory}/.config";
 
   defaultPkgs = with pkgs; [
@@ -103,7 +104,7 @@ in {
       PAGER = "";
       EDITOR = "nvim";
       HOME_MGR = "${workspace}/home-mgr";
-      ZK_NOTEBOOK_DIR = "${workspace}/zk";
+      ZK_NOTEBOOK_DIR = notebook;
     };
 
     shellAliases = {
@@ -117,7 +118,7 @@ in {
       k      = "kubectl";
       ping   = "prettyping";
       tree   = "exa -T";
-      zz     = "nvim ${workspace}/zk/init.md";
+      zz     = "( cd ${notebook} && nvim init.md )";
       ".."   = "cd ..";
     };
   };

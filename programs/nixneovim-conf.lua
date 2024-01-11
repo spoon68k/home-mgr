@@ -1,4 +1,4 @@
-local function create_journal_note()
+function create_journal_note()
 
     local function add_days_to_date(date, days)
         return os.date('%Y%m%d', os.time({year=os.date('%Y', date), month=os.date('%m', date), day=os.date('%d', date)}) + days * 86400)
@@ -21,8 +21,8 @@ local function create_journal_note()
     end
 
     local today = os.date('%Y%m%d')
-    local yesterday = get_adjusted_date(-1)
-    local tomorrow = get_adjusted_date(1)
+    local prev_day = get_adjusted_date(-1)
+    local next_day = get_adjusted_date(1)
     local note_path = os.getenv('ZK_NOTEBOOK_DIR') .. '/' .. today .. '.md'
 
     -- Create new note
@@ -34,8 +34,8 @@ local function create_journal_note()
         '',
         '# Journal for ' .. os.date('%Y-%m-%d'),
         '',
-        '[Prev](' .. yesterday .. ')',
-        '[Next](' .. tomorrow .. ')',
+        '- [Prev](' .. prev_day .. ')',
+        '- [Next](' .. next_day .. ')',
         '',
         '## Checklist',
         '',

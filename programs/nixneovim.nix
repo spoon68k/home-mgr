@@ -89,8 +89,12 @@
                     action = "'<cmd>ZkTags<CR>'";
                     silent = true;
                 };
-                 "<leader>zi" = {
+                "<leader>zi" = {
                     action = "'<cmd>e init.md<CR>'";
+                    silent = true;
+                };
+                "<leader>zd" = {
+                    action = "'<cmd>create_journal_note()<CR>'";
                     silent = true;
                 };
             };
@@ -204,7 +208,7 @@
             pkgs.vimExtraPlugins.harpoon
         ];
 
-        extraConfigVim = builtins.readFile(./nixneovim-conf.lua);
+        extraConfigVim = "lua <<EOF\n" + builtins.readFile(./nixneovim-conf.lua) + "\nEOF";
     };
 
     home.shellAliases = {

@@ -69,6 +69,10 @@
                     action = "'<cmd>Telescope harpoon marks<CR>'";
                     silent = true;
                 };
+                "<leader>n" = {
+                    action = "'<cmd>lua insert_current_date()<CR>'";
+                    silent = true;
+                };
                 "<leader>za" = {
                     action = "'<cmd>ZkNew { dir = vim.fn.expand(\\'%:p:h\\'), title = vim.fn.input(\\'Title: \\') }<CR>'";
                     silent = true;
@@ -94,7 +98,7 @@
                     silent = true;
                 };
                 "<leader>zd" = {
-                    action = "'<cmd>create_journal_note()<CR>'";
+                    action = "'<cmd>lua create_journal_note()<CR>'";
                     silent = true;
                 };
             };

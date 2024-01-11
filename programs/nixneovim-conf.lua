@@ -23,32 +23,38 @@ function create_journal_note()
     local today = os.date('%Y%m%d')
     local prev_day = get_adjusted_date(-1)
     local next_day = get_adjusted_date(1)
-    local note_path = os.getenv('ZK_NOTEBOOK_DIR') .. '/' .. today .. '.md'
 
-    -- Create new note
-    vim.cmd('e ' .. note_path)
-
-    -- Insert content
-    local lines = {
+    local lines_to_insert = {
         '#Journal',
         '',
-        '# Journal for ' .. os.date('%Y-%m-%d'),
+        '# Daily Journal for ' .. os.date('%Y-%m-%d'),
         '',
         '- [Prev](' .. prev_day .. ')',
         '- [Next](' .. next_day .. ')',
         '',
         '## Checklist',
         '',
-        '## Events',
-        '',
         '## Meetings',
+        ''
+        '## Notes',
         ''
     }
 
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
-
-    -- Save the note
+    -- create a blank file for tomorrow
+    vim.cmd('e ' .. os.getenv('ZK_NOTEBOOK_DIR') .. '/' .. next .. '.md')
     vim.cmd('write')
+
+    -- create a journal for today, incorporating anythng already stored
+    vim.cmd('e ' .. os.getenv('ZK_NOTEBOOK_DIR') .. '/' .. today .. '.md')
+    local existing_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    local combined_lines = vim.tbl_extend('force', lines_to_insert, existing_lines)
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, combined_lines)
+    vim.cmd('write')
+end
+
+function insert_current_date()
+    local today = os.date('%Y-%m-%d')
+    vim.api.nvim_put({today}, '', true, true)
 end
 
 require("toggleterm").setup {

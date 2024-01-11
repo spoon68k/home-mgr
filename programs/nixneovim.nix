@@ -69,7 +69,7 @@
                     action = "'<cmd>Telescope harpoon marks<CR>'";
                     silent = true;
                 };
-                "<leader>zn" = {
+                "<leader>za" = {
                     action = "'<cmd>ZkNew { dir = vim.fn.expand(\\'%:p:h\\'), title = vim.fn.input(\\'Title: \\') }<CR>'";
                     silent = true;
                 };
@@ -81,8 +81,12 @@
                     action = "'<Cmd>ZkLinks<CR>'";
                     silent = true;
                 };
-                "<leader>zz" = {
+                "<leader>zn" = {
                     action = "'<cmd>Telescope zk notes<CR>'";
+                    silent = true;
+                };
+                "<leader>zt" = {
+                    action = "'<cmd>ZkTags<CR>'";
                     silent = true;
                 };
                  "<leader>zi" = {
@@ -97,7 +101,7 @@
                     silent = true;
                 };
                 "<leader>znc" = {
-                    action = "':\\'<,\\'>ZkNewFromContentSelection { dir = vim.fn.expand(\\'%:p:h\\'), title = vim.fn.input(\\'Title: \\') }<CR>;'";
+                    action = "':\\'<,\\'>ZkNewFromContentSelection { dir = vim.fn.expand(\\'%:p:h\\'), title = vim.fn.input(\\'Title: \\') }<CR>'";
                     silent = true;
                 };
                 "<leader>za" = {
@@ -200,47 +204,7 @@
             pkgs.vimExtraPlugins.harpoon
         ];
 
-        extraConfigVim = ''
-            lua << EOF
-
-                require("toggleterm").setup {
-                    open_mapping = [[<C-t>]],
-                    direction = "float"
-                };
-
-                require("auto-save").setup {
-                    enable = true;
-                };
-
-                require("telescope").load_extension('harpoon');
-
-                vim.api.nvim_create_autocmd('LspAttach', {
-                    desc = 'LSP actions',
-                    callback = function()
-                        local bufmap = function(mode, lhs, rhs)
-                            local opts = { buffer = true}
-                            vim.keymap.set(mode, lhs, rhs, opts)
-                        end
-
-                        bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-                        bufmap('n', '<CR>', '<cmd>lua vim.lsp.buf.definition()<cr>')
-                        bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-                        bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-                        bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-                        bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-                        bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-                        bufmap('n', 'gS', '<cmd>Telescope lsp_document_symbols<cr>')
-                        bufmap('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<cr>')
-                        bufmap('n', 'gA', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-                        bufmap('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<cr>')
-                        bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-                        bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-                        bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-                    end
-                });
-            EOF
-        '';
-
+        extraConfigVim = builtins.readFile(./nixneovim-conf.lua);
     };
 
     home.shellAliases = {

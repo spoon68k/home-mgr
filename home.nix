@@ -11,6 +11,7 @@ let
     any-nix-shell        # zsh support for nix shell
     ansible              # System automation
     bottom               # alternative to htop and ytop ('btm')
+    bc                   # calculator
     coreutils            # basic gnu binaries
     cowsay               # say hi with cows
     dig                  # dns command line tool
@@ -118,7 +119,7 @@ in {
       k      = "kubectl";
       ping   = "prettyping";
       tree   = "exa -T";
-      zz     = "( cd ${notebook} && nvim init.md )";
+      zz     = "( cd ${notebook} && nvim initpage.md )";
       ".."   = "cd ..";
     };
   };

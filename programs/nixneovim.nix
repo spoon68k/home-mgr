@@ -94,7 +94,7 @@
                     silent = true;
                 };
                 "<leader>zi" = {
-                    action = "'<cmd>e init.md<CR>'";
+                    action = "'<cmd>e initpage.md<CR>'";
                     silent = true;
                 };
                 "<leader>zd" = {

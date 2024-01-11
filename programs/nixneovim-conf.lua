@@ -35,7 +35,7 @@ function create_journal_note()
         '## Checklist',
         '',
         '## Meetings',
-        ''
+        '',
         '## Notes',
         ''
     }

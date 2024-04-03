@@ -9,8 +9,6 @@ let
 
   defaultPkgs = with pkgs; [
     any-nix-shell        # zsh support for nix shell
-    ansible              # System automation
-    bottom               # alternative to htop and ytop ('btm')
     bc                   # calculator
     coreutils            # basic gnu binaries
     cowsay               # say hi with cows
@@ -25,6 +23,7 @@ let
     glow                 # terminal markdown viewer
     hyperfine            # command line benchmarking tool
     qrencode             # qr-code generator
+    jq                   # json utility
     killall              # kill processes by name
     kubecm               # kube config manager
     kubectl              # kubernetes control
@@ -34,16 +33,15 @@ let
     lsd                  # a better 'ls'
     lynx                 # console based web client
     ncdu                 # disk space info (a better 'du')
+    ncftp                # FTP client
     ncurses              # fancy console library
     neofetch             # system info
-    ngrok                # secure tunneling to localhost
     nil                  # Nix language services
     nix-index            # locate packages containing certain nixpkgs
     nyancat              # the famous rainbox cat
     most                 # fancy more (or less)
     prettyping           # a nicer 'ping'
     pv                   # pipe progress monitor
-    rage                 # encryption tool for secrets management
     ranger               # terminal file explorer
     ripgrep              # fast grep
     rmlint               # file cruft removal tool
@@ -53,7 +51,9 @@ let
     tmux                 # terminal multiplexer
     tree                 # display files in a tree
     unzip                # decompression tool
+    util-linux           # suite of system utilities
     wget                 # web client
+    xclip                # clipboard client
     zip                  # compression tool
     zk                   # zettelkasten tool
   ];

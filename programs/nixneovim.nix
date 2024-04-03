@@ -138,6 +138,7 @@
                 servers = {
                     bashls.enable = true;
                     rnix-lsp.enable = true;
+                    pyright.enable = true;
                 };
             };
 

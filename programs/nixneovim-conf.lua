@@ -41,7 +41,7 @@ function create_journal_note()
     }
 
     -- create a blank file for tomorrow
-    vim.cmd('e ' .. os.getenv('ZK_NOTEBOOK_DIR') .. '/' .. next .. '.md')
+    vim.cmd('e ' .. os.getenv('ZK_NOTEBOOK_DIR') .. '/' .. next_day .. '.md')
     vim.cmd('write')
 
     -- create a journal for today, incorporating anythng already stored

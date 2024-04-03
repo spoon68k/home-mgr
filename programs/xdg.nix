@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }: {
 
-  programs.xdg = {
-    enable = true;
-  };
+    programs.xdg = {
+        enable = true;
+    };
 
 }

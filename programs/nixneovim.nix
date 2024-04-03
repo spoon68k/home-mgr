@@ -41,7 +41,7 @@
                     action = "'<cmd>Telescope live_grep<CR>'";
                     silent = true;
                 };
-                 "<leader>/" = {
+                "<leader>/" = {
                     action = "'<cmd>noh<CR>'";
                     silent = true;
                 };
@@ -116,7 +116,7 @@
                     action = "':\\'<,\\'>lua vim.lsp.buf.range_code_action()<CR>'";
                     silent = true;
                 };
-             };
+            };
 
             normalVisualOp = {
                 "Y" = "'Y'";
@@ -171,13 +171,13 @@
                         modes = [ "i" "s" ];
                         action = ''
                             function(fallback)
-                                if cmp.visible() then
-                                    cmp.select_next_item()
-                                else
-                                    fallback()
-                                end
-                            end 
-                        '';
+                            if cmp.visible() then
+                                cmp.select_next_item()
+                            else
+                                fallback()
+                                    end
+                                    end 
+                                    '';
                     };
                 };
                 formatting.fields = [ "kind" "abbr" "menu" ];
@@ -205,12 +205,12 @@
                 picker = "telescope";
             };
 
-       };
+        };
 
         extraPlugins = [
             pkgs.vimExtraPlugins.nvim-toggleterm-lua
-            pkgs.vimExtraPlugins.auto-save-nvim
-            pkgs.vimExtraPlugins.harpoon
+                pkgs.vimExtraPlugins.auto-save-nvim
+                pkgs.vimExtraPlugins.harpoon
         ];
 
         extraConfigVim = "lua <<EOF\n" + builtins.readFile(./nixneovim-conf.lua) + "\nEOF";

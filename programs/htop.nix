@@ -1,52 +1,53 @@
 { config, pkgs, lib, ... }: {
 
-  programs.htop = {
-    enable = true;
-    settings = {
-    
-      delay = 15;
-      color_scheme = 0;
-      tree_view = 0;
+    programs.htop = {
+        enable = true;
+        settings = {
 
-      fields = with config.lib.htop.fields; [
-        PID
-        USER
-        PRIORITY
-        NICE
-        M_SIZE
-        M_RESIDENT
-        M_SHARE
-        STATE
-        PERCENT_CPU
-        PERCENT_MEM
-        TIME
-        COMM
-      ];
+            delay = 15;
+            color_scheme = 0;
+            tree_view = 0;
 
-      highlight_base_name = 0;
-      highlight_megabytes = 1;
-      highlight_threads = 1;
- 
-      show_thread_names = 0;
-      show_program_path = 1;
+            fields = with config.lib.htop.fields; [
+                PID
+                USER
+                PRIORITY
+                NICE
+                M_SIZE
+                M_RESIDENT
+                M_SHARE
+                STATE
+                PERCENT_CPU
+                PERCENT_MEM
+                TIME
+                COMM
+            ];
 
-      hide_threads = 0;
-      hide_kernel_threads = 1;
-      high_userland_threads = 0;
-   
-      sort_key = 47;
-      sort_direction = 0;
+            highlight_base_name = 0;
+            highlight_megabytes = 1;
+            highlight_threads = 1;
 
-   } // (with config.lib.htop; leftMeters [
-     (bar "LeftCPUs")
-     (bar "Memory")
-     (bar "Swap")
-     (text "Zram")
-   ]) // (with config.lib.htop; rightMeters [
-     (bar "RightCPUs")
-     (text "Tasks")
-     (text "LoadAverage")
-     (text "Uptime")
-   ]);
-  };
+            show_thread_names = 0;
+            show_program_path = 1;
+
+            hide_threads = 0;
+            hide_kernel_threads = 1;
+            high_userland_threads = 0;
+
+            sort_key = 47;
+            sort_direction = 0;
+
+        } // (with config.lib.htop; leftMeters [
+        (bar "LeftCPUs")
+            (bar "Memory")
+            (bar "Swap")
+            (text "Zram")
+            ]) // (with config.lib.htop; rightMeters [
+            (bar "RightCPUs")
+                (text "Tasks")
+                (text "LoadAverage")
+                (text "Uptime")
+                ]);
+    };
+
 }

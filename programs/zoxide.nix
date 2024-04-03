@@ -1,13 +1,13 @@
 { config, pkgs, lib, ... }: {
 
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-    options = [ ];
-  };
+    programs.zoxide = {
+        enable = true;
+        enableZshIntegration = true;
+        options = [ ];
+    };
 
-  home.shellAliases = {
-    cdx = "z";
-  };
+    home.shellAliases = {
+        cdx = "z";
+    };
 
 }

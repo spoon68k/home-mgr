@@ -1,12 +1,11 @@
-{ settings, pkgs, lib, ... }: {
+{ settings, config, pkgs, lib, work-flag, ... }: {
 
     programs.git = {
         enable = true;
-        userName = settings.git.user;
-        userEmail = settings.git.email;
 
         extraConfig = {
             init.defaultBranch = "master";
+            include.path = "${config.xdg.configHome}/git/profile";
             color.ui = true;
             core = {
                 autocrlf = "false";

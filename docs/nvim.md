@@ -9,20 +9,18 @@ leader f    - toggle NvimTree
 leader t    - open telescope
 noremap Y Y - make yank work the way I am used to (with the newline)
 
-
 ### General VIM
 
-<ctrl>-w left|right -> to toggle between panels
-: <cmd> - runs the command in the shell
-:qa!    - quit all
-
+<ctrl>-w left|right   - to toggle between panels
+: <cmd>               - runs the command in the shell
+:qa!                  - quit all
 
 ### Code Editing
 
-V - select lines visually
-> - indent
-< - outdent
-
+V     - select lines visually
+>     - indent
+<     - outdent
+gg=G  - retab file
 
 ### NVimTree
 

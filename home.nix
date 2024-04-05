@@ -1,10 +1,9 @@
-{ settings, lib, pkgs, stdenv, nix-colors, ... }:
+{ settings, config, sops-nix, lib, pkgs, stdenv, nix-colors, work-flag, grfx-flag, ... }:
 
 let username = settings.username;
     homeDirectory = "/home/${username}";
-    workspace = "${homeDirectory}/workspace";
-    notebook = "${workspace}/zk";
-    configHome = "${homeDirectory}/.config";
+    notebook = "${homeDirectory}/workspace/zk";
+    profile = if work-flag.value then "work" else "home";
 
     defaultPkgs = with pkgs; [
         any-nix-shell        # zsh support for nix shell
@@ -27,7 +26,8 @@ let username = settings.username;
         kubectl              # kubernetes control
         kubectx              # tool for switching contexts and namespaces
         kubernetes-helm      # helm
-        lnav                 # log file navigator on the terminal
+        lf                   # TUI file manager
+        lnav                 # log navigator on the terminal
         lsd                  # a better 'ls'
         lynx                 # console based web client
         ncdu                 # disk space info (a better 'du')
@@ -77,16 +77,23 @@ let username = settings.username;
         (pkgs.writeScriptBin "hb" (builtins.readFile ./scripts/hb))
     ];
 
+    graphical = if grfx-flag.value then
+        (map import [
+            ./programs/hyprland.nix
+            ./programs/firefox.nix
+        ])
+    else [];
+
 in {
 
     programs.home-manager.enable = true;
 
-    imports = programs;
+    # imports = programs;
+    imports = programs ++ graphical;
 
     colorscheme = nix-colors.colorSchemes.material;
 
     xdg = {
-        inherit configHome;
         enable = true;
     };
 
@@ -102,7 +109,6 @@ in {
             LANG = "en_GB.UTF-8";
             PAGER = "";
             EDITOR = "nvim";
-            HOME_MGR = "${workspace}/home-mgr";
             ZK_NOTEBOOK_DIR = notebook;
         };
  
@@ -123,9 +129,22 @@ in {
     };
 
     # restart services on change
-    systemd.user.startServices = "sd-switch";
+    systemd.user = {
+        startServices = "sd-switch";
+        services.mbsync.Unit.After = [ "sops-nix.service" ];
+    };
 
     # suppress about home-manager news
     news.display = "silent";
 
+    sops = {
+        age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+
+        secrets.git-profile = {
+            sopsFile = ./secrets/${profile}-git.conf;
+            format = "binary";
+            mode = "0600";
+            path = "${config.xdg.configHome}/git/profile";
+        };
+    };
 }

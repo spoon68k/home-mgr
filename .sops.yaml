@@ -1,0 +1,12 @@
+keys:
+  - &home age1zwe6zs5c292wh3hlklqkk78t8jyqn36kxkvwhalf6ef8kl4vducqwvdh3m
+  - &work age1x9n2jacf5jdm9jkcmny7ah2znfcx834lrr8mj7m7yfmcwr6mhsfqyupp3a
+creation_rules:
+  - path_regex: secrets/home-*
+    key_groups:
+      - age:
+        - *home
+  - path_regex: secrets/work-*
+    key_groups:
+      - age:
+        - *work

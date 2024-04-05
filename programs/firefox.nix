@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: {
 
-    programs.xdg = {
+    programs.firefox = {
         enable = true;
     };
 

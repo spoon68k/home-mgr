@@ -18,15 +18,24 @@
         # Neovim Nix support
         nixneovim.url = "github:nixneovim/nixneovim";
 
+        # Secrets management using SOPS
+        sops-nix.url = "github:Mic92/sops-nix";
+ 
         # Manager for dotfiles
         home-manager = {
-            url = "github:nix-community/home-manager";
-            inputs.nixpkgs.follows = "nixpkgs";
+          url = "github:nix-community/home-manager";
+          inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # Work flag
+        work-flag.url = "github:boolean-option/false";
+ 
+        # Graphical support flag
+        grfx-flag.url = "github:boolean-option/false";
     };
 
-    outputs = { flake-utils, nixpkgs, nurpkgs, nixneovim, home-manager, nix-colors, ... }: 
+    outputs = { flake-utils, nixpkgs, nurpkgs, nixneovim, home-manager,
+                nix-colors, sops-nix, work-flag, grfx-flag, ... }: 
 
         flake-utils.lib.eachDefaultSystem (system: let
 
@@ -42,15 +51,14 @@
             imports = [
                 nix-colors.homeManagerModule
                 nixneovim.nixosModules.default
+                sops-nix.homeManagerModules.sops
                 ./home.nix
             ];
 
-            mkHome = settings:
-
-            home-manager.lib.homeManagerConfiguration {
+            mkHome = settings: home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 extraSpecialArgs = {
-                    inherit settings nix-colors;
+                    inherit settings nix-colors work-flag grfx-flag;
                 };
                 modules = [{inherit imports;}];
             };

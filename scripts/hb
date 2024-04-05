@@ -2,18 +2,50 @@
 
 ARCH="$(uname -m | tr 'A-Z' 'a-z')-$(uname -s | tr 'A-Z' 'a-z')"
 HOST="$(hostname -s | tr 'A-Z' 'a-z')"
+WORK="false"
+GRFX="false"
 
 if [ -z "$XDG_CONFIG_HOME" ]; then
-  echo "XDG_CONFIG_HOME is not set" >&2
-  exit 1
+    echo "XDG_CONFIG_HOME is not set" >&2
+    exit 1
 fi
 
-if [ -z "$HOME_MGR" ]; then
-  echo "HOME_MGR is not set" >&2
-  exit 1
+if [ ! -d "$XDG_CONFIG_HOME/hm" ]; then
+    echo "Home manager setup not found" >&2
+    exit 1
+fi
+
+if [ ! -f "$XDG_CONFIG_HOME/sops/age/keys.txt" ]; then
+    echo "Missing secret keys" >&2
+    exit 1
+fi
+
+if [ ! -f "$XDG_CONFIG_HOME/hm/profile" ]; then
+    echo "Missing home manager profile" >&2
+    exit 1
+fi
+
+grep -qi work "$XDG_CONFIG_HOME/hm/profile"
+if [ "$?" -eq 0 ]; then
+    WORK="true"
+fi
+
+grep -qi graphical "$XDG_CONFIG_HOME/hm/profile"
+if [ "$?" -eq 0 ]; then
+    GRFX="true"
 fi
 
 rm -f "$XDG_CONFIG_HOME/gitui/theme.ron"
 
-cd "$HOME_MGR"
-nix build --impure ".#homeConfigurations.$ARCH.$HOST.activationPackage" && result/activate
+echo "Updating home-manager..."
+echo "Arch: $ARCH"
+echo "Host: $HOST"
+echo "Work: $WORK"
+echo "Grfx: $GRFX"
+
+cd "$XDG_CONFIG_HOME/hm"
+nix build --impure \
+    --override-input work-flag github:boolean-option/$WORK \
+    --override-input grfx-flag github:boolean-option/$GRFX \
+    ".#homeConfigurations.$ARCH.$HOST.activationPackage" && result/activate
+

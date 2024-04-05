@@ -1,9 +1,4 @@
-{ settings, pkgs, ... }: 
-
-let
-    username = settings.username;
-
-in {
+{ settings, pkgs, ... }: {
 
     programs.zsh = {
         enable = true;
@@ -13,8 +8,8 @@ in {
         loginExtra = ''
             eval $(ssh-agent) 1>/dev/null
 
-            if [ -f ~/.ssh/${username}.key ]; then
-                ssh-add ~/.ssh/${username}.key 1>/dev/null 2>&1
+            if [ -f ~/.ssh/ed25519.key ]; then
+                ssh-add ~/.ssh/ed25519.key 1>/dev/null 2>&1
             fi
 
             any-nix-shell zsh --info-right | source /dev/stdin

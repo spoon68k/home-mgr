@@ -1,9 +1,11 @@
-{ settings, config, sops-nix, lib, pkgs, stdenv, nix-colors, work-flag, grfx-flag, ... }:
+{ config, sops-nix, lib, pkgs, stdenv, nix-colors, ... }:
 
-let username = settings.username;
-    homeDirectory = "/home/${username}";
+let username = builtins.getEnv "USER";
+    homeDirectory = builtins.getEnv "HOME";
+    isWork = builtins.getEnv "WORK" == "true";
+    isGraphical = builtins.getEnv "GRFX" == "true";
     notebook = "${homeDirectory}/workspace/zk";
-    profile = if work-flag.value then "work" else "home";
+    profile = if isWork then "work" else "home";
 
     defaultPkgs = with pkgs; [
         any-nix-shell        # zsh support for nix shell
@@ -77,7 +79,7 @@ let username = settings.username;
         (pkgs.writeScriptBin "hb" (builtins.readFile ./scripts/hb))
     ];
 
-    graphical = if grfx-flag.value then
+    graphical_programs = if isGraphical then
         (map import [
             ./programs/hyprland.nix
             ./programs/firefox.nix
@@ -89,7 +91,7 @@ in {
     programs.home-manager.enable = true;
 
     # imports = programs;
-    imports = programs ++ graphical;
+    imports = programs ++ graphical_programs;
 
     colorscheme = nix-colors.colorSchemes.material;
 

@@ -20,10 +20,7 @@
         };
 
         colorschemes = {
-            tokyonight = {
-                enable = true;
-                style = "night";
-            };
+            kanagawa.enable = true;
         };
 
         mappings = {
@@ -137,7 +134,6 @@
                 enable = true;
                 servers = {
                     bashls.enable = true;
-                    rnix-lsp.enable = true;
                     pyright.enable = true;
                 };
             };

@@ -26,16 +26,9 @@
           url = "github:nix-community/home-manager";
           inputs.nixpkgs.follows = "nixpkgs";
         };
-
-        # Work flag
-        work-flag.url = "github:boolean-option/false";
- 
-        # Graphical support flag
-        grfx-flag.url = "github:boolean-option/false";
     };
 
-    outputs = { flake-utils, nixpkgs, nurpkgs, nixneovim, home-manager,
-                nix-colors, sops-nix, work-flag, grfx-flag, ... }: 
+    outputs = { flake-utils, nixpkgs, nurpkgs, nixneovim, home-manager, nix-colors, sops-nix, ... }: 
 
         flake-utils.lib.eachDefaultSystem (system: let
 
@@ -55,20 +48,20 @@
                 ./home.nix
             ];
 
-            mkHome = settings: home-manager.lib.homeManagerConfiguration {
+            overlays = [
+                nixneovim.overlays.default
+            ];
+
+            config = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 extraSpecialArgs = {
-                    inherit settings nix-colors work-flag grfx-flag;
+                    inherit nix-colors;
                 };
                 modules = [{inherit imports;}];
             };
 
-            systems = builtins.fromJSON (builtins.readFile "/etc/systems.json");
-
-            configs = builtins.mapAttrs (host: settings: mkHome settings) systems;
-
         in {
-            homeConfigurations = configs;
+            homeConfigurations = config;
         });
 
 }

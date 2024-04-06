@@ -1,4 +1,4 @@
-{ settings, config, pkgs, lib, work-flag, ... }: {
+{ config, ... }: {
 
     programs.git = {
         enable = true;

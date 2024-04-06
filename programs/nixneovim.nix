@@ -135,6 +135,9 @@
                 servers = {
                     bashls.enable = true;
                     pyright.enable = true;
+                    jsonls.enable = true;
+                    html.enable = true;
+                    nil.enable = true;
                 };
             };
 

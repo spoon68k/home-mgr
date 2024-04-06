@@ -48,10 +48,6 @@
                 ./home.nix
             ];
 
-            overlays = [
-                nixneovim.overlays.default
-            ];
-
             config = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 extraSpecialArgs = {

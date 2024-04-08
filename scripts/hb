@@ -43,6 +43,7 @@ if grep -qi graphical "${XDG_CONFIG_HOME}/hm/profile"; then
 fi
 
 rm -f "$XDG_CONFIG_HOME/gitui/theme.ron"
+export ARCH HOME USER WORK GRFX
 
 echo "==============================================================================="
 echo "Arch: $ARCH"

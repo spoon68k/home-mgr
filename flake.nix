@@ -20,7 +20,10 @@
 
         # Secrets management using SOPS
         sops-nix.url = "github:Mic92/sops-nix";
- 
+
+        # Tool for reproducible dev environments
+        devenv.url = "github:cachix/devenv/latest";
+
         # Manager for dotfiles
         home-manager = {
           url = "github:nix-community/home-manager";
@@ -28,7 +31,8 @@
         };
     };
 
-    outputs = { flake-utils, nixpkgs, nurpkgs, nixneovim, home-manager, nix-colors, sops-nix, ... }: 
+    outputs = { flake-utils, nixpkgs, nurpkgs, nixneovim,
+                devenv, home-manager, nix-colors, sops-nix, ... }: 
 
         flake-utils.lib.eachDefaultSystem (system: let
 

@@ -10,8 +10,10 @@ let username = builtins.getEnv "USER";
     defaultPkgs = with pkgs; [
         any-nix-shell        # zsh support for nix shell
         bc                   # calculator
+        cachix               # Nix binary cache tool
         coreutils            # basic gnu binaries
         cowsay               # say hi with cows
+        devenv               # dev environment utils
         dig                  # dns command line tool
         docker               # container manager
         docker-compose       # container orchestration manager
@@ -75,16 +77,16 @@ let username = builtins.getEnv "USER";
         ./programs/zsh.nix
     ]);
 
-    scripts = [
-        (pkgs.writeScriptBin "hb" (builtins.readFile ./scripts/hb))
-    ];
-
     graphical_programs = if isGraphical then
         (map import [
             ./programs/hyprland.nix
             ./programs/firefox.nix
         ])
     else [];
+
+    scripts = [
+        (pkgs.writeScriptBin "hb" (builtins.readFile ./scripts/hb))
+    ];
 
 in {
 
@@ -116,6 +118,7 @@ in {
  
         shellAliases = {
             du     = "ncdu --color dark -rr -x";
+            hbe    = "( cd ${config.xdg.configHome}/hm && nvim . )";
             js     = "jq .";
             l      = "lsd -lah";
             la     = "lsd -lAh";

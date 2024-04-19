@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ pkgs, ... }: {
 
     programs.nixneovim = {
 
@@ -94,7 +94,7 @@
                     action = "'<cmd>e initpage.md<CR>'";
                     silent = true;
                 };
-                "<leader>zd" = {
+                "<leader>zj" = {
                     action = "'<cmd>lua create_journal_note()<CR>'";
                     silent = true;
                 };

@@ -60,7 +60,11 @@ let username = builtins.getEnv "USER";
         zk                   # zettelkasten tool
     ];
 
-    programs = (map import [
+    graphicalPkgs = if isGraphical then with pkgs; [
+        rofi-wayland         # run launcher
+    ] else [];
+
+    defaultPrgs = (map import [
         ./programs/bat.nix
         ./programs/direnv.nix
         ./programs/fzf.nix
@@ -77,9 +81,10 @@ let username = builtins.getEnv "USER";
         ./programs/zsh.nix
     ]);
 
-    graphical_programs = if isGraphical then
+    graphicalPrgs = if isGraphical then
         (map import [
             ./programs/hyprland.nix
+            ./programs/kitty.nix
             ./programs/firefox.nix
         ])
     else [];
@@ -92,8 +97,7 @@ in {
 
     programs.home-manager.enable = true;
 
-    # imports = programs;
-    imports = programs ++ graphical_programs;
+    imports = defaultPrgs ++ graphicalPrgs;
 
     colorscheme = nix-colors.colorSchemes.material;
 
@@ -106,10 +110,9 @@ in {
  
         stateVersion = "21.03";
  
-        packages = defaultPkgs ++ scripts;
+        packages = defaultPkgs ++ graphicalPkgs ++ scripts;
  
         sessionVariables = {
-            DISPLAY = ":0";
             LANG = "en_GB.UTF-8";
             PAGER = "";
             EDITOR = "nvim";

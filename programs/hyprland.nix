@@ -56,7 +56,8 @@
         "$mod SHIFT, E, exec, pkill Hyprland"
 
         "$mod, F, exec, firefox"
-        "$mod, Q, exec, alacritty"
+        "$mod, T, exec, kitty"
+        "$mod, W, exec, rofi -show"
         "$mod, R, exec, rofi -show run"
 
         "$mod, left, movefocus, l"

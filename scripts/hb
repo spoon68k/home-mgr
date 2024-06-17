@@ -1,59 +1,46 @@
 #!/usr/bin/env sh
 
 ARCH="$(uname -m | tr '[:upper:]' '[:lower:]')-$(uname -s | tr '[:upper:]' '[:lower:]')"
+USER="$(id -un)"
+HOME="$(realpath ~)"
 WORK="false"
 GRFX="false"
 
-if [ -z "${HOME}" ]; then
-    echo "HOME not set" >&2
+if [ ! -d "${HOME}/workspace/home-mgr" ]; then
+    echo "Home manager setup cannot be found" >&2
     exit 1
 fi
 
-if [ -z "${USER}" ]; then
-    echo "USER not set" >&2
+if [ ! -f "${HOME}/.config/sops/age/keys.txt" ]; then
+    echo "Missing SOPS private keys" >&2
     exit 1
 fi
 
-if [ -z "${XDG_CONFIG_HOME}" ]; then
-    echo "XDG_CONFIG_HOME not set" >&2
+if [ ! -f "${HOME}/.config/hm/profile" ]; then
+    echo "Missing Home Manager profile" >&2
     exit 1
 fi
 
-if [ ! -d "${XDG_CONFIG_HOME}/hm" ]; then
-    echo "Home manager setup not found" >&2
-    exit 1
-fi
-
-if [ ! -f "${XDG_CONFIG_HOME}/sops/age/keys.txt" ]; then
-    echo "Missing secret keys" >&2
-    exit 1
-fi
-
-if [ ! -f "${XDG_CONFIG_HOME}/hm/profile" ]; then
-    echo "Missing home manager profile" >&2
-    exit 1
-fi
-
-if grep -qi work "${XDG_CONFIG_HOME}/hm/profile"; then
+if grep -qi work "${HOME}/.config/hm/profile"; then
     WORK="true"
 fi
 
-if grep -qi graphical "${XDG_CONFIG_HOME}/hm/profile"; then
+if grep -qi graphical "${HOME}/.config/hm/profile"; then
     GRFX="true"
 fi
 
-rm -f "$XDG_CONFIG_HOME/gitui/theme.ron"
-export ARCH HOME USER WORK GRFX
+rm -f "${HOME}/.config/gitui/theme.ron"
+export ARCH USER HOME WORK GRFX
 
 echo "==============================================================================="
 echo "Arch: $ARCH"
-echo "Home: $HOME"
 echo "User: $USER"
+echo "Home: $HOME"
 echo "Work: $WORK"
 echo "Grfx: $GRFX"
 echo "==============================================================================="
 echo "Updating home-manager..."
 
-cd "$XDG_CONFIG_HOME/hm" || exit
+cd "${HOME}/workspace/home-mgr" || exit
 nix build --impure ".#homeConfigurations.$ARCH.activationPackage" && result/activate
 

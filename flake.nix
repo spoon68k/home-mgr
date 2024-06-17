@@ -32,7 +32,7 @@
     };
 
     outputs = { flake-utils, nixpkgs, nurpkgs, nixneovim,
-                devenv, home-manager, nix-colors, sops-nix, ... }: 
+                home-manager, nix-colors, sops-nix, ... }: 
 
         flake-utils.lib.eachDefaultSystem (system: let
 

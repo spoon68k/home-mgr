@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, ... }: 
+
+    let 
+      isWork = builtins.getEnv "WORK" == "true";
+      colorscheme = if isWork then "vscode" else "kanagawa";
+
+    in {
 
     programs.nixneovim = {
 
@@ -20,7 +26,7 @@
         };
 
         colorschemes = {
-            kanagawa.enable = true;
+          ${colorscheme}.enable = true;
         };
 
         mappings = {

@@ -6,6 +6,7 @@ let username = builtins.getEnv "USER";
     isGraphical = builtins.getEnv "GRFX" == "true";
     notebook = "${homeDirectory}/workspace/zk";
     profile = if isWork then "work" else "home";
+    colorscheme = if isWork then "vscode" else "kanagawa";
 
     defaultPkgs = with pkgs; [
         any-nix-shell        # zsh support for nix shell
@@ -64,30 +65,28 @@ let username = builtins.getEnv "USER";
         rofi-wayland         # run launcher
     ] else [];
 
-    defaultPrgs = (map import [
-        ./programs/bat.nix
-        ./programs/direnv.nix
-        ./programs/fzf.nix
-        ./programs/gh.nix
-        ./programs/git.nix
-        ./programs/gitui.nix
-        ./programs/htop.nix
-        ./programs/jq.nix
-        ./programs/k9s.nix
-        ./programs/nixneovim.nix
-        ./programs/starship.nix
-        ./programs/tmux.nix
-        ./programs/zoxide.nix
-        ./programs/zsh.nix
-    ]);
-
-    graphicalPrgs = if isGraphical then
-        (map import [
-            ./programs/hyprland.nix
-            ./programs/kitty.nix
-            ./programs/firefox.nix
-        ])
-    else [];
+    defaultPrgs = [
+        (import ./programs/bat.nix)
+        (import ./programs/direnv.nix)
+        (import ./programs/fzf.nix)
+        (import ./programs/gh.nix)
+        (import ./programs/git.nix)
+        (import ./programs/gitui.nix)
+        (import ./programs/htop.nix)
+        (import ./programs/jq.nix)
+        (import ./programs/k9s.nix)
+        (import ./programs/starship.nix)
+        (import ./programs/tmux.nix)
+        (import ./programs/zoxide.nix)
+        (import ./programs/zsh.nix)
+        ((import ./programs/nixneovim.nix) colorscheme)
+    ];
+   
+    graphicalPrgs = if isGraphical then [
+        (import ./programs/hyprland.nix)
+        (import ./programs/kitty.nix)
+        (import ./programs/firefox.nix)
+    ] else [];
 
     scripts = [
         (pkgs.writeScriptBin "hb" (builtins.readFile ./scripts/hb))

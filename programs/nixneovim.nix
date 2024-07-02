@@ -1,10 +1,4 @@
-{ pkgs, ... }: 
-
-    let 
-      isWork = builtins.getEnv "WORK" == "true";
-      colorscheme = if isWork then "vscode" else "kanagawa";
-
-    in {
+colorscheme: { pkgs, ... }: {
 
     programs.nixneovim = {
 

@@ -2,11 +2,8 @@
 
 let username = builtins.getEnv "USER";
     homeDirectory = builtins.getEnv "HOME";
-    isWork = builtins.getEnv "WORK" == "true";
-    isGraphical = builtins.getEnv "GRFX" == "true";
+    settings = builtins.fromJSON (builtins.readFile "${homeDirectory}/.config/hm/settings.json");
     notebook = "${homeDirectory}/workspace/zk";
-    profile = if isWork then "work" else "home";
-    colorscheme = if isWork then "vscode" else "kanagawa";
 
     defaultPkgs = with pkgs; [
         any-nix-shell        # zsh support for nix shell
@@ -61,9 +58,10 @@ let username = builtins.getEnv "USER";
         zk                   # zettelkasten tool
     ];
 
-    graphicalPkgs = if isGraphical then with pkgs; [
-        rofi-wayland         # run launcher
-    ] else [];
+    extraPkgs = pkgs.lib.flatten [
+        (if settings.gfxEssentials then [ pkgs.rofi-wayland ] else [])
+        (if settings.obsidian then [ pkgs.obsidian ] else [])
+    ];
 
     defaultPrgs = [
         (import ./programs/bat.nix)
@@ -79,10 +77,10 @@ let username = builtins.getEnv "USER";
         (import ./programs/tmux.nix)
         (import ./programs/zoxide.nix)
         (import ./programs/zsh.nix)
-        ((import ./programs/nixneovim.nix) colorscheme)
+        ((import ./programs/nixneovim.nix) settings.vimColourScheme)
     ];
    
-    graphicalPrgs = if isGraphical then [
+    gfxEssentials = if settings.gfxEssentials then [
         (import ./programs/hyprland.nix)
         (import ./programs/kitty.nix)
         (import ./programs/firefox.nix)
@@ -96,7 +94,7 @@ in {
 
     programs.home-manager.enable = true;
 
-    imports = defaultPrgs ++ graphicalPrgs;
+    imports = defaultPrgs ++ gfxEssentials;
 
     colorscheme = nix-colors.colorSchemes.material;
 
@@ -109,7 +107,7 @@ in {
  
         stateVersion = "21.03";
  
-        packages = defaultPkgs ++ graphicalPkgs ++ scripts;
+        packages = defaultPkgs ++ extraPkgs ++ scripts;
  
         sessionVariables = {
             LANG = "en_GB.UTF-8";
@@ -148,7 +146,7 @@ in {
         age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
 
         secrets.git-profile = {
-            sopsFile = ./secrets/${profile}-git.conf;
+            sopsFile = ./secrets/${settings.gitProfile}-git.conf;
             format = "binary";
             mode = "0600";
             path = "${config.xdg.configHome}/git/profile";

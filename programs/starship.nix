@@ -5,7 +5,7 @@
         enableZshIntegration = true;
         settings = {
             add_newline = false;
-            command_timeout = 1000;
+            command_timeout = 5000;
             username = {
                 show_always = true;
             };

@@ -16,28 +16,19 @@ if [ ! -f "${HOME}/.config/sops/age/keys.txt" ]; then
     exit 1
 fi
 
-if [ ! -f "${HOME}/.config/hm/profile" ]; then
-    echo "Missing Home Manager profile" >&2
+if [ ! -f "${HOME}/.config/hm/settings.json" ]; then
+    echo "Missing Home Manager settings.json" >&2
     exit 1
 fi
 
-if grep -qi work "${HOME}/.config/hm/profile"; then
-    WORK="true"
-fi
-
-if grep -qi graphical "${HOME}/.config/hm/profile"; then
-    GRFX="true"
-fi
-
 rm -f "${HOME}/.config/gitui/theme.ron"
-export ARCH USER HOME WORK GRFX
+export ARCH USER HOME
 
 echo "==============================================================================="
 echo "Arch: $ARCH"
 echo "User: $USER"
 echo "Home: $HOME"
-echo "Work: $WORK"
-echo "Grfx: $GRFX"
+cat "${HOME}/.config/hm/settings.json"
 echo "==============================================================================="
 echo "Updating home-manager..."
 

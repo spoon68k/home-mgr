@@ -3,8 +3,6 @@
 ARCH="$(uname -m | tr '[:upper:]' '[:lower:]')-$(uname -s | tr '[:upper:]' '[:lower:]')"
 USER="$(id -un)"
 HOME="$(realpath ~)"
-WORK="false"
-GRFX="false"
 
 if [ ! -d "${HOME}/workspace/home-mgr" ]; then
     echo "Home manager setup cannot be found" >&2

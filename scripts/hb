@@ -3,33 +3,62 @@
 ARCH="$(uname -m | tr '[:upper:]' '[:lower:]')-$(uname -s | tr '[:upper:]' '[:lower:]')"
 USER="$(id -un)"
 HOME="$(realpath ~)"
+HMGR="${HOME}/.config/hm"
+KEYS="${HOME}/.config/sops/age/keys.txt"
 
-if [ ! -d "${HOME}/workspace/home-mgr" ]; then
-    echo "Home manager setup cannot be found" >&2
+# Check we have a personal flake containing profile settings
+
+if [ ! -f "${HMGR}/flake.nix" ]; then
+	echo "Personal flake missing!"
+	exit 1
+fi
+
+# Check we have private keys 
+
+if [ -f "${KEYS}" ]; then
+    permissions=$(stat -c "%a" "${KEYS}")
+    if [ "$permissions" -ne 600 ]; then
+        echo "'${KEYS}' exists, but does not have the correct permissions (owner=rw only)" >&2
+	exit 1
+    fi
+else
+    echo "'${KEYS}' does not exist" >&2
     exit 1
 fi
 
-if [ ! -f "${HOME}/.config/sops/age/keys.txt" ]; then
-    echo "Missing SOPS private keys" >&2
+# Process commands
+
+if [ "$1" == "switch" ]; then
+
+    cd "${HMGR}"
+    nix flake update
+    home-manager --flake ".#${USER}" switch
+
+    if [ ! -f "${HOME}/.config/nvim/lazy-lock.json" ]; then
+        echo "Creating lazy lock for nvim"
+        cp "${HOME}/.config/nvim/lazy-lock-vcs.json" "${HOME}/.config/nvim/lazy-lock.json"
+        chmod 644 "${HOME}/.config/nvim/lazy-lock.json"
+    fi
+
+elif [ "$1" == "generations" ]; then
+	cd "${HMGR}"
+	home-manager --flake ".#${USER}" generations | awk '{printf "\033[36m%4d\033[0m -> %s %s\n", $5, $1, $2}'
+
+elif [ "$1" == "activate" ]; then
+    if [ -n "$2" ]; then
+        echo "Activating generation: $2"
+        PKG=`home-manager --flake ".#${USER}" generations | awk -v gen_id="$2" '$5 == gen_id {print $7}'`
+    	"${PKG}/activate"
+    else
+        echo "Error: 'activate' command requires an ID."
+        echo "Usage: `basename $0` activate <id>"
+        exit 1
+    fi
+
+else
+    echo "Usage: `basename $0` {switch|generations|activate <id>}"
     exit 1
 fi
 
-if [ ! -f "${HOME}/.config/hm/settings.json" ]; then
-    echo "Missing Home Manager settings.json" >&2
-    exit 1
-fi
-
-rm -f "${HOME}/.config/gitui/theme.ron"
-export ARCH USER HOME
-
-echo "==============================================================================="
-echo "Arch: $ARCH"
-echo "User: $USER"
-echo "Home: $HOME"
-cat "${HOME}/.config/hm/settings.json"
-echo "==============================================================================="
-echo "Updating home-manager..."
-
-cd "${HOME}/workspace/home-mgr" || exit
-nix build --impure ".#homeConfigurations.$ARCH.activationPackage" && result/activate
+exit 0
 

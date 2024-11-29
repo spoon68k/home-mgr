@@ -1,67 +1,40 @@
 {
-    description = "Home Manager (dotfiles) configuration";
+  description = "Flake to setup home packages and dotfiles";
 
-    inputs = {
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
+  };
 
-        # Unstable channel corresponding to the main dev branch with tested updates
-        nixpkgs.url = "nixpkgs/nixos-unstable";
+  outputs = { self, nixpkgs, home-manager, sops-nix,... }:
+    let
+      system = "x86_64-linux";
+    in {
+      homeModule = { username, git-profile, gui-packages, ... }:
+         home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
 
-        # Nix community repository
-        nurpkgs.url = "github:nix-community/NUR";
+          # Pass the root path to your Home Manager configuration
+          extraSpecialArgs = {
+            root = self;
+            inherit username git-profile gui-packages;
+          };
 
-        # Flake utilities
-        flake-utils.url = "github:numtide/flake-utils";
-
-        # Modules and schemes to make theming with Nix awesome
-        nix-colors.url = "github:misterio77/nix-colors";
-
-        # Neovim Nix support
-        nixneovim.url = "github:nixneovim/nixneovim";
-
-        # Secrets management using SOPS
-        sops-nix.url = "github:Mic92/sops-nix";
-
-        # Tool for reproducible dev environments
-        devenv.url = "github:cachix/devenv/latest";
-
-        # Manager for dotfiles
-        home-manager = {
-          url = "github:nix-community/home-manager";
-          inputs.nixpkgs.follows = "nixpkgs";
+          # Include your Home Manager modules
+          modules = [
+            { programs.home-manager.enable = true; }
+            sops-nix.homeManagerModules.sops
+            ./lib/packages.nix
+            ./lib/sops.nix
+            ./lib/dotfiles.nix
+            ./lib/shell.nix
+            ./lib/home.nix
+          ];
         };
-    };
-
-    outputs = { flake-utils, nixpkgs, nurpkgs, nixneovim,
-                home-manager, nix-colors, sops-nix, ... }: 
-
-        flake-utils.lib.eachDefaultSystem (system: let
-
-            pkgs = import nixpkgs {
-                inherit system;
-                config.allowUnfree = true;
-                overlays = [
-                    nurpkgs.overlay
-                    nixneovim.overlays.default
-                ];
-            };
-
-            imports = [
-                nix-colors.homeManagerModule
-                nixneovim.nixosModules.default
-                sops-nix.homeManagerModules.sops
-                ./home.nix
-            ];
-
-            config = home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                extraSpecialArgs = {
-                    inherit nix-colors;
-                };
-                modules = [{inherit imports;}];
-            };
-
-        in {
-            homeConfigurations = config;
-        });
-
+      };
 }

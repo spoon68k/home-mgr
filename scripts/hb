@@ -51,7 +51,7 @@ fi
 
 # Process commands
 
-if [ "$1" == "switch" ]; then
+if [ "$1" = "switch" ]; then
 
     cd "${HMGR}"
     nix flake update
@@ -63,11 +63,11 @@ if [ "$1" == "switch" ]; then
         chmod 644 "${HOME}/.config/nvim/lazy-lock.json"
     fi
 
-elif [ "$1" == "generations" ]; then
+elif [ "$1" = "generations" ]; then
 	cd "${HMGR}"
 	home-manager --flake ".#${USER}" generations | awk '{printf "\033[36m%4d\033[0m -> %s %s\n", $5, $1, $2}'
 
-elif [ "$1" == "activate" ]; then
+elif [ "$1" = "activate" ]; then
     if [ -n "$2" ]; then
         echo "Activating generation: $2"
         PKG=`home-manager --flake ".#${USER}" generations | awk -v gen_id="$2" '$5 == gen_id {print $7}'`

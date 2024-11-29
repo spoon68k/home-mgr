@@ -10,6 +10,29 @@ KEYS="${HOME}/.config/sops/age/keys.txt"
 
 if [ ! -f "${HMGR}/flake.nix" ]; then
 	echo "Personal flake missing!"
+	echo "Please create something like that following in ${HMGR}/flake.nix ..."
+	cat <<EOF
+
+{
+  description = "Personal Home Manager configuration";
+
+  inputs = {
+    hmgr.url = "github:///spoon68k/home-mgr?submodules=1";
+  };
+
+  outputs = { self, hmgr, ... }:
+    {
+      homeConfigurations = {
+        spoonz = hmgr.homeModule {
+          username = "<username>";
+          git-profile = "<profile>";
+          gui-packages = false|true;
+        };
+      };
+    };
+}
+
+EOF
 	exit 1
 fi
 

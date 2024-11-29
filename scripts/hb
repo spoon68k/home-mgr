@@ -23,7 +23,7 @@ if [ ! -f "${HMGR}/flake.nix" ]; then
   outputs = { self, hmgr, ... }:
     {
       homeConfigurations = {
-        spoonz = hmgr.homeModule {
+        <username> = hmgr.homeModule {
           username = "<username>";
           git-profile = "<profile>";
           gui-packages = false|true;

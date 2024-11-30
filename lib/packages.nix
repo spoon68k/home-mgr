@@ -52,6 +52,7 @@
         nix-index            # locate packages containing certain nixpkgs
         nodejs               # node executable
         nyancat              # the famous rainbox cat
+        nushell              # type aware shell
         oh-my-posh           # shell fancifier 
         prettyping           # a nicer 'ping'
         pv                   # pipe progress monitor

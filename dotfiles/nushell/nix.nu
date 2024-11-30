@@ -1,6 +1,6 @@
 # Load the nix env into nushell
 
-sh -c "source ~/.nix-profile/etc/profile.d/nix.sh && env"
+bash -c "source ~/.nix-profile/etc/profile.d/nix.sh && env"
     | lines
     | parse "{k}={v}"
     | where k not-in ["_", "LAST_EXIT_CODE", "DIRS_POSITION"]

@@ -22,7 +22,7 @@
           # Pass the root path to your Home Manager configuration
           extraSpecialArgs = {
             root = self;
-            inherit username git-profile gui-packages;
+            inherit username git-profile gui-packages obsidian-landing;
           };
 
           # Include your Home Manager modules

@@ -12,7 +12,7 @@
     let
       system = "x86_64-linux";
     in {
-      homeModule = { username, git-profile, gui-packages, ... }:
+      homeModule = { username, git-profile, gui-packages, obsidian-landing, ... }:
          home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             inherit system;

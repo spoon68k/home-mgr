@@ -75,11 +75,12 @@
 
     gfxPackages = with pkgs; [
         firefox              # browser
-        kitty                # terminal emulator
-        wofi                 # launcher
-        pavucontrol          # audio controller
         hyprshot             # screenshot
         hyprpaper            # background manager
+        kitty                # terminal emulator
+        obsidian             # note editor
+        pavucontrol          # audio controller
+        wofi                 # launcher
     ];
 
     scripts = [

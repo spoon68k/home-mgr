@@ -6,15 +6,15 @@ return {
 --  -- Markdown and Writing
 --  require('plugins.configs.markdown_nvim'),
 --  require('plugins.configs.markdown_preview'),
-    require('plugins.configs.obsidian'),
+    require('plugins.configs.obsidian'),                    -- Obsidian plugin
 --  require('plugins.configs.vim_pencil'),
 --  require('plugins.configs.zen_mode'),
 --
     -- Navigation and Productivity
     require('plugins.configs.tree'),                        -- File explorer
-    require('plugins.configs.harpoon'),                     -- Mark and return
-    require('plugins.configs.goto_preview'),
-    require('plugins.configs.telescope'),
+    require('plugins.configs.harpoon'),                     -- Awesome mark manager
+    require('plugins.configs.goto_preview'),                -- Preview LSP definitions
+    require('plugins.configs.telescope'),                   -- Find, filter, preview, pick...
 --
 --  -- Git Integration
 --  require('plugins.configs.git_worktree'),
@@ -47,8 +47,8 @@ return {
     require('plugins.configs.toggleterm'),
 --  require('plugins.configs.codeium'),
 --  require('plugins.configs.codesnap'),
---  require('plugins.configs.nvim_autopairs'),
---  require('plugins.configs.comment'),
+    require('plugins.configs.autopairs'),
+    require('plugins.configs.comment'),
 --  require('plugins.configs.vim_sleuth'),
 --  require('plugins.configs.todo_comments'),
 --  require('plugins.configs.trouble'),

@@ -8,52 +8,52 @@
     home.shellAliases = {
 
         # System 
-        alias du     = "ncdu --color dark -rr -x";
-        alias js     = "jq .";
-        alias more   = "bat";
-        alias ping   = "prettyping";
-        alias tree   = "exa -T";
-        alias c      = "clear";
-        alias fzf    = "fzf --height 50% --preview 'bat --style = numbers --color= always --line-range :500 {}'";
-        alias js     = "jq .";
-        alias ping   = "prettyping";
-        alias tree   = "exa -T";
-        alias vi     = "nvim";
-        alias vif    = "nvim (fzf | str trim)";
+        du     = "ncdu --color dark -rr -x";
+        js     = "jq .";
+        more   = "bat";
+        ping   = "prettyping";
+        tree   = "exa -T";
+        c      = "clear";
+        fzf    = "fzf --height 50% --preview 'bat --style = numbers --color= always --line-range :500 {}'";
+        js     = "jq .";
+        ping   = "prettyping";
+        tree   = "exa -T";
+        vi     = "nvim";
+        vif    = "nvim (fzf | str trim)";
 
         # Obsidian
-        alias notes  = "nvim ~/vaults/notes/${obsidian-landing}"
+        notes  = "nvim ~/vaults/notes/${obsidian-landing}"
 
         # Git
-        alias gc     = "git commit -m";
-        alias gca    = "git commit -a -m";
-        alias gp     = "git push origin HEAD";
-        alias gpu    = "git pull origin";
-        alias gst    = "git status";
-        alias glog   = "git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit";
-        alias gdiff  = "git diff";
-        alias gco    = "git checkout";
-        alias gb     = "git branch";
-        alias gba    = "git branch -a";
-        alias gadd   = "git add";
-        alias ga     = "git add -p";
-        alias gcoall = "git checkout -- .";
-        alias gr     = "git remote";
-        alias gre    = "git reset";
+        gc     = "git commit -m";
+        gca    = "git commit -a -m";
+        gp     = "git push origin HEAD";
+        gpu    = "git pull origin";
+        gst    = "git status";
+        glog   = "git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit";
+        gdiff  = "git diff";
+        gco    = "git checkout";
+        gb     = "git branch";
+        gba    = "git branch -a";
+        gadd   = "git add";
+        ga     = "git add -p";
+        gcoall = "git checkout -- .";
+        gr     = "git remote";
+        gre    = "git reset";
 
         # K8s
-        alias k      = "kubectl";
-        alias ka     = "kubectl apply -f";
-        alias kg     = "kubectl get";
-        alias kd     = "kubectl describe";
-        alias kdel   = "kubectl delete";
-        alias kl     = "kubectl logs";
-        alias kgpo   = "kubectl get pod";
-        alias kgd    = "kubectl get deployments";
-        alias kc     = "kubectx";
-        alias kns    = "kubens";
-        alias kl     = "kubectl logs -f";
-        alias ke     = "kubectl exec -it";
+        k      = "kubectl";
+        ka     = "kubectl apply -f";
+        kg     = "kubectl get";
+        kd     = "kubectl describe";
+        kdel   = "kubectl delete";
+        kl     = "kubectl logs";
+        kgpo   = "kubectl get pod";
+        kgd    = "kubectl get deployments";
+        kc     = "kubectx";
+        kns    = "kubens";
+        kl     = "kubectl logs -f";
+        ke     = "kubectl exec -it";
 
     };
 

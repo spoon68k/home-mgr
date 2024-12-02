@@ -84,7 +84,8 @@
     ];
 
     scripts = [
-      (pkgs.writeScriptBin "hb" (builtins.readFile "${root}/scripts/hb"))
+      (pkgs.writeScriptBin "hb"    (builtins.readFile "${root}/scripts/hb"))
+      (pkgs.writeScriptBin "notes" (builtins.readFile "${root}/scripts/notes"))
     ];
 
 in {

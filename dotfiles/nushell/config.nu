@@ -847,5 +847,6 @@ $env.config = {
 }
 
 source ~/.config/nushell/env.nu
+source ~/.config/nushell/alias.nu
 source ~/.config/nushell/oh-my-posh.nu
 source ~/.config/nushell/nix.nu

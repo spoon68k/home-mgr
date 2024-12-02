@@ -14,7 +14,6 @@
         alias ping   = "prettyping";
         alias tree   = "exa -T";
         alias c      = "clear";
-        alias du     = "ncdu --color dark -rr -x";
         alias fzf    = "fzf --height 50% --preview 'bat --style = numbers --color= always --line-range :500 {}'";
         alias js     = "jq .";
         alias ping   = "prettyping";

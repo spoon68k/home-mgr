@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
 cd ~/vaults/notes
-vi "${OBS_LANDING}"
+vi "${obsidian-landing}"
 

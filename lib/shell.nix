@@ -49,7 +49,7 @@
         kgd    = "kubectl get deployments";
         kc     = "kubectx";
         kns    = "kubens";
-        kl     = "kubectl logs -f";
+        klf    = "kubectl logs -f";
         ke     = "kubectl exec -it";
 
     };

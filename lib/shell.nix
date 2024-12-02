@@ -6,3 +6,4 @@
         OBS_LANDING = "${obsidian-landing}";
     };
 
+}

@@ -1,4 +1,4 @@
-{ pkgs, lib, root, gui-packages, obsidian-landing, ... }: let
+{ pkgs, root, gui-packages, obsidian-landing, ... }: let
 
     defaultPackages = with pkgs; [
         any-nix-shell        # zsh support for nix shell
@@ -84,10 +84,12 @@
     ];
 
     scripts = [
+
         (pkgs.writeScriptBin "hb"
             (builtins.readFile "${root}/scripts/hb"))
+
         (pkgs.writeScriptBin "notes"
-            (lib.strings.replace ("$\{obsidian-landing\}") obsidian-landing
+            (builtins.replaceStrings ["$\{obsidian-landing\}"] [obsidian-landing]
                 (builtins.readFile "${root}/scripts/notes")))
     ];
 

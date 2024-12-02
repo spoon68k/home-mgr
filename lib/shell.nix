@@ -8,14 +8,11 @@
     home.shellAliases = {
 
         # System 
-        du     = "ncdu --color dark -rr -x";
-        js     = "jq .";
-        more   = "bat";
-        ping   = "prettyping";
-        tree   = "exa -T";
         c      = "clear";
+        du     = "ncdu --color dark -rr -x";
         fzf    = "fzf --height 50% --preview 'bat --style = numbers --color= always --line-range :500 {}'";
         js     = "jq .";
+        more   = "bat";
         ping   = "prettyping";
         tree   = "exa -T";
         vi     = "nvim";

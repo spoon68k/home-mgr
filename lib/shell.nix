@@ -19,7 +19,7 @@
         vif    = "nvim (fzf | str trim)";
 
         # Obsidian
-        notes  = "nvim ~/vaults/notes/${obsidian-landing}"
+        notes  = "nvim ~/vaults/notes/${obsidian-landing}";
 
         # Git
         gc     = "git commit -m";

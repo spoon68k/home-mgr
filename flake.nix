@@ -32,7 +32,6 @@
             ./lib/packages.nix
             ./lib/sops.nix
             ./lib/dotfiles.nix
-            ./lib/shell.nix
             ./lib/home.nix
           ];
         };

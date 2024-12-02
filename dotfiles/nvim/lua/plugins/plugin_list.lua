@@ -49,6 +49,7 @@ return {
 --  require('plugins.configs.codesnap'),
     require('plugins.configs.autopairs'),
     require('plugins.configs.comment'),
+    require('plugins.configs.tabular'),
 --  require('plugins.configs.vim_sleuth'),
 --  require('plugins.configs.todo_comments'),
 --  require('plugins.configs.trouble'),

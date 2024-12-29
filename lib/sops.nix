@@ -1,6 +1,5 @@
-{ config, root, git-profile, ... }:
+{ config, root, git-profile, ... }: {
 
-{
     sops.age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt"; 
 
     # restart services on change
@@ -9,7 +8,7 @@
         services.mbsync.Unit.After = [ "sops-nix.service" ];
     };
 
-    # Git profile
+    # git profile
     sops.secrets.git-profile = {
       sopsFile = "${root}/secrets/${git-profile}-git.conf";
       format = "binary";

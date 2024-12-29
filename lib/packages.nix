@@ -44,7 +44,7 @@
         lynx                 # console based web client
         most                 # fancy more (or less)
         ncdu                 # disk space info (a better 'du')
-        ncftp                # FTP client
+#        ncftp                # FTP client
         ncurses              # fancy console library
         neofetch             # system info
         neovim               # vim with lua
@@ -59,7 +59,7 @@
         qrencode             # qr-code generator
         ranger               # terminal file explorer
         ripgrep              # fast grep
-        rmlint               # file cruft removal tool
+#        rmlint               # file cruft removal tool
         rsync                # file sync tool
         strace               # system trace tool
         tldr                 # summary of a manpage
@@ -87,6 +87,9 @@
 
         (pkgs.writeScriptBin "hb"
             (builtins.readFile "${root}/scripts/hb"))
+
+        (pkgs.writeScriptBin "nv"
+            (builtins.readFile "${root}/scripts/nv"))
 
         (pkgs.writeScriptBin "notes"
             (builtins.replaceStrings ["$\{obsidian-landing\}"] [obsidian-landing]

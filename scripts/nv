@@ -1,0 +1,59 @@
+#!/usr/bin/env sh
+
+# This script allows me to work on nvim configuration (dev mode) then lock it back to home manager control
+
+# -----------------------------------------------------------------------------
+
+HOME="$(realpath ~)"
+HMGR="${HOME}/workspace/home-mgr"
+
+if [ ! -d "${HMGR}" ]; then
+  echo "dev tree not found for home-mgr" >&2
+  exit 1
+fi
+
+if [ ! -f "${HOME}/.config/nvim/README.md" ]; then
+  echo "cannot find nvim config" >&2
+  exit 1
+fi
+
+STATUS=$( ( realpath "${HOME}/.config/nvim/README.md" | grep -q '^/nix/store' ) && echo lock || echo dev )
+
+# -----------------------------------------------------------------------------
+
+if [ "$1" = "status" ]; then
+  echo "status: ${STATUS} mode"
+
+elif [ "$1" = "dev" ]; then
+
+  if [ "${STATUS}" = "lock" ]; then
+    rm -rf "${HOME}/.config/nvim.bak"
+    mv "${HOME}/.config/nvim" "${HOME}/.config/nvim.bak"
+    mkdir "${HOME}/.config/nvim"
+    ln -s "${HMGR}/dotfiles/nvim/lazy-lock-vcs.json" "${HOME}/.config/nvim/lazy-lock.json"
+    ln -s "${HMGR}/dotfiles/nvim/README.md" "${HOME}/.config/nvim/README.md"
+    ln -s "${HMGR}/dotfiles/nvim/init.lua" "${HOME}/.config/nvim/init.lua"
+    ln -s "${HMGR}/dotfiles/nvim/lua" "${HOME}/.config/nvim/lua"
+    echo "switched: lock -> dev"
+  else
+    echo "already in dev mode"
+
+  fi
+
+elif [ "$1" = "lock" ]; then
+
+  if [ "${STATUS}" = "dev" ]; then
+    rm -rf "${HOME}/.config/nvim.bak"
+    mv "${HOME}/.config/nvim" "${HOME}/.config/nvim.bak"
+    mkdir "${HOME}/.config/nvim"
+    hb switch
+    echo "switched: dev -> lock"
+
+  else
+    echo "already in lock mode"
+  fi
+
+else
+    echo "Usage: `basename $0` {status|lock|dev}"
+    exit 1
+fi

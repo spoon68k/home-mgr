@@ -24,6 +24,7 @@ if [ ! -f "${HMGR}/flake.nix" ]; then
     {
       homeConfigurations = {
         <username> = hmgr.homeModule {
+          system = "x86_64-linux"
           username = "<username>";
           git-profile = "<profile>";
           gui-packages = false|true;

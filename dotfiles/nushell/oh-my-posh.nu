@@ -11,7 +11,7 @@ let _omp_root: string = (
 let _omp_executable: string = $_omp_root + "/bin/oh-my-posh"
 
 $env.POWERLINE_COMMAND = 'oh-my-posh'
-$env.POSH_THEME = ($_omp_root + "/share/oh-my-posh/themes/M365Princess.omp.json")
+$env.POSH_THEME = ($_omp_root + "/share/oh-my-posh/themes/aliens.omp.json")
 $env.PROMPT_INDICATOR = ""
 $env.POSH_SESSION_ID = (echo "4907e0a6-5116-4aac-bd35-72b6495eaf99")
 $env.POSH_SHELL_VERSION = (version | get version)

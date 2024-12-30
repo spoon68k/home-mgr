@@ -3,13 +3,18 @@ if ($env.config? | is-not-empty) {
     $env.config = ($env.config | upsert render_right_prompt_on_last_line true)
 }
 
+let _omp_root: string = (
+    which oh-my-posh | get path |
+    each {|f| (^realpath $f)} | first |
+    path split | reverse | skip 2 | reverse | path join)
+
+let _omp_executable: string = $_omp_root + "/bin/oh-my-posh"
+
 $env.POWERLINE_COMMAND = 'oh-my-posh'
-$env.POSH_THEME = (echo "/nix/store/646f4j97m3kyi8aqjgz3w1rz83xv8imd-oh-my-posh-23.20.3/share/oh-my-posh/themes/M365Princess.omp.json")
+$env.POSH_THEME = ($_omp_root + "/share/oh-my-posh/themes/M365Princess.omp.json")
 $env.PROMPT_INDICATOR = ""
 $env.POSH_SESSION_ID = (echo "4907e0a6-5116-4aac-bd35-72b6495eaf99")
 $env.POSH_SHELL_VERSION = (version | get version)
-
-let _omp_executable: string = (echo "/nix/store/646f4j97m3kyi8aqjgz3w1rz83xv8imd-oh-my-posh-23.20.3/bin/oh-my-posh")
 
 # PROMPTS
 

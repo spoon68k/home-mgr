@@ -105,5 +105,6 @@ $env.PATH = ($env.PATH | uniq)
 
 # Custom env settings
 $env.LANG = "en_GB.UTF-8";
+$env.TERM = "xterm-256color";
 
 

@@ -92,6 +92,7 @@ $env.NU_PLUGIN_DIRS = [
 
 use std "path add"
 path add ".nix-profile/bin"
+path add "/nix/var/nix/profiles/default/bin"
 $env.PATH = ($env.PATH | uniq)
 
 # $env.PATH = ($env.PATH | split row (char esep))

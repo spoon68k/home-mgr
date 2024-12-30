@@ -4,8 +4,8 @@ if ($env.config? | is-not-empty) {
 }
 
 let _omp_root: string = (
-    which oh-my-posh | get path |
-    each {|f| (^realpath $f)} | first |
+    echo ($env.HOME + "/.nix-profile/bin/oh-my-posh") |
+    each {|f| (^realpath $f)} |
     path split | reverse | skip 2 | reverse | path join)
 
 let _omp_executable: string = $_omp_root + "/bin/oh-my-posh"

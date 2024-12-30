@@ -50,6 +50,7 @@
         neovim               # vim with lua
         nil                  # Nix language services
         nix-index            # locate packages containing certain nixpkgs
+        nmap                 # network scanning tool
         nodejs               # node executable
         nyancat              # the famous rainbox cat
         nushell              # type aware shell

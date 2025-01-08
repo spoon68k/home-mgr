@@ -1,4 +1,4 @@
-{ pkgs, root, gui-packages, obsidian-landing, ... }: let
+{ pkgs, root, gfxPackages, openingNote, ... }: let
 
     defaultPackages = with pkgs; [
         any-nix-shell        # zsh support for nix shell
@@ -74,7 +74,7 @@
         zoxide               # enhanced cd tool
     ];
 
-    gfxPackages = with pkgs; [
+    graphicsPackages = if (!gfxPackages) then [] else with pkgs; [
         firefox              # browser
         hyprshot             # screenshot
         hyprpaper            # background manager
@@ -93,12 +93,12 @@
             (builtins.readFile "${root}/scripts/nv"))
 
         (pkgs.writeScriptBin "notes"
-            (builtins.replaceStrings ["$\{obsidian-landing\}"] [obsidian-landing]
+            (builtins.replaceStrings ["$\{openingNote\}"] [openingNote]
                 (builtins.readFile "${root}/scripts/notes")))
     ];
 
 in {
 
-  home.packages = defaultPackages ++ scripts ++ (if gui-packages then gfxPackages else []);
+  home.packages = defaultPackages ++ scripts ++ graphicsPackages;
 
 }

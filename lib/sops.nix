@@ -1,4 +1,4 @@
-{ config, root, git-profile, ... }: {
+{ config, root, gitProfile, ... }: {
 
     sops.age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt"; 
 
@@ -10,7 +10,7 @@
 
     # git profile
     sops.secrets.git-profile = {
-      sopsFile = "${root}/secrets/${git-profile}-git.conf";
+      sopsFile = "${root}/secrets/${gitProfile}-git.conf";
       format = "binary";
       mode = "0600";
       path = "${config.xdg.configHome}/git/profile";

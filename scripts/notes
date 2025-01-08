@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-cd ~/vaults/notes
-nvim "${openingNotes}"
+cd "{{ config.homeDirectory }}/{{ config.noteVault }}"
+nvim "{{ config.openingNote }}"
 

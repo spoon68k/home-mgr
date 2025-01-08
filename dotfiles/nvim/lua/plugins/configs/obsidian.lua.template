@@ -12,7 +12,7 @@ return {
             workspaces = {
                 {
                    name = "Notes",
-                   path = "~/vaults/notes"
+                   path = "{{ config.homeDirectory }}/{{ config.noteVault }}"
                 },
             },
             daily_notes = {

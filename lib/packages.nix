@@ -1,4 +1,4 @@
-{ pkgs, root, gfxPackages, openingNote, ... }: let
+{ pkgs, root, home, username, gfxPackages, noteVault, openingNote, ... }: let
 
     defaultPackages = with pkgs; [
         any-nix-shell        # zsh support for nix shell
@@ -93,8 +93,10 @@
             (builtins.readFile "${root}/scripts/nv"))
 
         (pkgs.writeScriptBin "notes"
-            (builtins.replaceStrings ["$\{openingNote\}"] [openingNote]
-                (builtins.readFile "${root}/scripts/notes")))
+            (builtins.replaceStrings ["\{\{ config.homeDirectory \}\}"] ["${home}/${username}"]
+            (builtins.replaceStrings ["\{\{ config.noteVault \}\}"] [noteVault]
+            (builtins.replaceStrings ["\{\{ config.openingNote \}\}"] [openingNote]
+            (builtins.readFile "${root}/scripts/notes")))))
     ];
 
 in {

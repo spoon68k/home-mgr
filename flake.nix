@@ -10,7 +10,7 @@
 
     outputs = { self, nixpkgs, home-manager, sops-nix,... }: {
 
-        homeModule = { username, system, promptColour, 
+        homeModule = { home, username, system, promptColour, 
                        gitProfile, gfxPackages, openingNote, ... }:
 
             home-manager.lib.homeManagerConfiguration {
@@ -22,7 +22,7 @@
 
                 extraSpecialArgs = {
                     root = self;
-                    inherit username promptColour gitProfile gfxPackages openingNote;
+                    inherit home username promptColour gitProfile gfxPackages openingNote;
                 };
 
                 modules = [

@@ -1,4 +1,4 @@
-{ pkgs, root, username, promptColour, ... }: 
+{ pkgs, root, home, username, promptColour, ... }: 
 
 let
 
@@ -23,6 +23,7 @@ let
 
             # Perform substitutions
             sed -i "s|{{ config.username }}|${username}|g" "$f"
+            sed -i "s|{{ config.homeDirectory }}|${home}/${username}|g" "$f"
             sed -i "s|{{ config.promptColour }}|${promptColour}|g" "$f"
 
             # Remove the old .template file

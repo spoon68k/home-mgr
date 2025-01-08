@@ -3,16 +3,16 @@
 
 [core]
 	autocrlf = "false"
-	pager = ~/.nix-profile/bin/delta
+	pager = {{ config.homeDirectory }}/.nix-profile/bin/delta
 
 [credential]
 	helper = "store"
 
 [credential "https://gist.github.com"]
-	helper = ~/.nix-profile/bin/gh auth git-credential
+	helper = {{ config.homeDirectory }}/.nix-profile/bin/gh auth git-credential
 
 [credential "https://github.com"]
-	helper = ~/.nix-profile/bin/gh auth git-credential
+	helper = {{ config.homeDirectory }}/.nix-profile/bin/gh auth git-credential
 
 [delta]
 	features = "side-by-side line-numbers decorations"
@@ -23,10 +23,10 @@
 	file-style = "bold yellow"
 
 [include]
-	path = ~/.config/git/profile
+	path = {{ config.homeDirectory }}/.config/git/profile
 
 [init]
 	defaultBranch = "master"
 
 [interactive]
-	diffFilter = ~/.nix-profile/bin/delta --color-only
+	diffFilter = {{ config.homeDirectory }}/.nix-profile/bin/delta --color-only

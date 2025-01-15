@@ -11,6 +11,7 @@ return {
 --  require('plugins.configs.zen_mode'),
 --
     -- Navigation and Productivity
+    require('plugins.configs.copilot'),                     -- Github copilot plugin
     require('plugins.configs.tree'),                        -- File explorer
     require('plugins.configs.harpoon'),                     -- Awesome mark manager
     require('plugins.configs.goto_preview'),                -- Preview LSP definitions

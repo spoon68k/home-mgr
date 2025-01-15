@@ -1,9 +1,11 @@
-{ pkgs, root, home, username, promptColour, noteVault, ... }: 
+{ pkgs, root, home, username, promptColour, noteVault, copilotEnabled, ... }: 
 
 let
 
     dotfiles = "${root}/dotfiles";
     
+    boolToString = b: if b then "true" else "false";
+
     # A small derivation to:
     #   1. Copy `dotfiles` into $out
     #   2. Perform variable substitution in *.template files
@@ -26,6 +28,7 @@ let
             sed -i "s|{{ config.homeDirectory }}|${home}/${username}|g" "$f"
             sed -i "s|{{ config.promptColour }}|${promptColour}|g" "$f"
             sed -i "s|{{ config.noteVault }}|${noteVault}|g" "$f"
+            sed -i "s|{{ config.copilotEnabled }}|${boolToString(copilotEnabled)}|g" "$f"
 
             # Remove the old .template file
             mv "$f" "$n"

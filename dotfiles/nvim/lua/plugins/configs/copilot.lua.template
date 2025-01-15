@@ -1,0 +1,14 @@
+-- ~/.config/nvim/lua/plugins/configs/comment.lua
+
+
+if {{ config.copilotEnabled }} then
+    return {
+        'github/copilot.vim',
+        opts = {
+            -- add any options here
+        }
+    }
+else
+    return { }
+end
+

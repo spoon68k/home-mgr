@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# This script allows me to work on nvim configuration (dev mode) then lock it back to home manager control
+# This script allows me to work on nvim configuration (dev mode)
 
 # -----------------------------------------------------------------------------
 
@@ -17,43 +17,32 @@ if [ ! -f "${HOME}/.config/nvim/README.md" ]; then
   exit 1
 fi
 
-STATUS=$( ( realpath "${HOME}/.config/nvim/README.md" | grep -q '^/nix/store' ) && echo lock || echo dev )
+STATUS=$( ( realpath "${HOME}/.config/nvim/README.md" | grep -q '^/nix/store' ) && echo hm || echo dev )
 
 # -----------------------------------------------------------------------------
 
 if [ "$1" = "status" ]; then
-  echo "status: ${STATUS} mode"
+
+    if [ "${STATUS}" = "hm" ]; then
+        echo "status: home-manager mode"
+    else
+        echo "status: dev mode"
+        diff -rx lazy-lock.json "${HOME}/.config/nvim" "${HMGR}/dotfiles/nvim"
+    fi
 
 elif [ "$1" = "dev" ]; then
 
-  if [ "${STATUS}" = "lock" ]; then
+  if [ "${STATUS}" = "hm" ]; then
     rm -rf "${HOME}/.config/nvim.bak"
     mv "${HOME}/.config/nvim" "${HOME}/.config/nvim.bak"
-    mkdir "${HOME}/.config/nvim"
-    ln -s "${HMGR}/dotfiles/nvim/lazy-lock-vcs.json" "${HOME}/.config/nvim/lazy-lock.json"
-    ln -s "${HMGR}/dotfiles/nvim/README.md" "${HOME}/.config/nvim/README.md"
-    ln -s "${HMGR}/dotfiles/nvim/init.lua" "${HOME}/.config/nvim/init.lua"
-    ln -s "${HMGR}/dotfiles/nvim/lua" "${HOME}/.config/nvim/lua"
-    echo "switched: lock -> dev"
+    rsync -avL "${HOME}/.config/nvim.bak/" "${HOME}/.config/nvim" 
+    echo "switched: home-manager -> dev"
   else
     echo "already in dev mode"
 
   fi
 
-elif [ "$1" = "lock" ]; then
-
-  if [ "${STATUS}" = "dev" ]; then
-    rm -rf "${HOME}/.config/nvim.bak"
-    mv "${HOME}/.config/nvim" "${HOME}/.config/nvim.bak"
-    mkdir "${HOME}/.config/nvim"
-    hb switch
-    echo "switched: dev -> lock"
-
-  else
-    echo "already in lock mode"
-  fi
-
 else
-    echo "Usage: `basename $0` {status|lock|dev}"
+    echo "Usage: `basename $0` {status|dev}"
     exit 1
 fi

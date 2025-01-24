@@ -45,12 +45,13 @@ return {
     require('plugins.configs.twilight'),                    -- Dims inactive areas
 --
 --  -- Utilities
-    require('plugins.configs.toggleterm'),
 --  require('plugins.configs.codeium'),
 --  require('plugins.configs.codesnap'),
     require('plugins.configs.autopairs'),
     require('plugins.configs.comment'),
+    require('plugins.configs.sort'),
     require('plugins.configs.tabular'),
+    require('plugins.configs.toggleterm'),
 --  require('plugins.configs.vim_sleuth'),
 --  require('plugins.configs.todo_comments'),
 --  require('plugins.configs.trouble'),

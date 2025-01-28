@@ -19,6 +19,7 @@
         duf                  # disk usage/free utility
         fd                   # faster find for files
         feh                  # image viewer
+        file                 # file type tool
         fzf                  # fuzzy file finder
         gcc                  # c compiler
         gh                   # github client
@@ -54,6 +55,7 @@
         nyancat              # the famous rainbox cat
         nushell              # type aware shell
         oh-my-posh           # shell fancifier 
+        openssl              # openssl
         prettyping           # a nicer 'ping'
         pv                   # pipe progress monitor
         qrencode             # qr-code generator
@@ -67,6 +69,7 @@
         util-linux           # suite of system utilities
         wget                 # web client
         xclip                # clipboard client
+        zbar                 # barcode encoder
         zip                  # compression tool
         zoxide               # enhanced cd tool
     ];
@@ -88,6 +91,9 @@
 
         (pkgs.writeScriptBin "nv"
             (builtins.readFile "${root}/scripts/nv"))
+
+        (pkgs.writeScriptBin "scramble"
+            (builtins.readFile "${root}/scripts/scramble"))
 
         (pkgs.writeScriptBin "notes"
             (builtins.replaceStrings ["\{\{ config.homeDirectory \}\}"] ["${home}/${username}"]

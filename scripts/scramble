@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+#
+# scramble — AES-256-CTR encryption/decryption
+#
+# Usage:
+#   scramble -i <input_file> -o <output_file> [-d]
+#
+#   -i  Input file  (required)
+#   -o  Output file (required)
+#   -d  Decrypt mode (optional; if omitted, encrypt mode is used)
+#
+
+set -e
+
+usage() {
+    echo "Usage: $(basename $0) [-d] -i <input_file> -o <output_file>"
+    exit 1
+}
+
+# Defaults
+decrypt_mode="no"
+
+while getopts ":i:o:d" opt; do
+    case "$opt" in
+        i) infile="$OPTARG";;
+        o) outfile="$OPTARG";;
+        d) decrypt_mode="yes";;
+        *) usage;;
+    esac
+done
+
+# Check required
+if [[ -z "$infile" || -z "$outfile" ]]; then
+    usage
+fi
+
+if [[ "$infile" = "$outfile" ]]; then
+    echo "Error: Input and Output file cannot be the same"
+    exit 1
+fi
+
+# Read passphrase
+echo -n "Enter passphrase: "
+read -s PASS
+echo
+echo -n "Confirm passphrase: "
+read -s PASS2
+echo
+
+if [[ "$PASS" != "$PASS2" ]]; then
+    echo "Error: Passphrases do not match."
+    exit 1
+fi
+
+# Encrypt/decrypt
+if [[ "$decrypt_mode" == "no" ]]; then
+
+    openssl enc -aes-256-ctr -pbkdf2 -salt -in "${infile}" -out "${outfile}.$$" -pass pass:"$PASS"
+    dd if="${outfile}.$$" of="${outfile}" bs=1 skip=8 2>/dev/null
+    rm -f "${outfile}.$$"
+    echo "Encrypted: $infile -> $outfile"
+
+else
+
+    printf "Salted__" > "${infile}.$$"
+    cat "${infile}" >> "${infile}.$$"
+    openssl enc -d -aes-256-ctr -pbkdf2 -salt -in "${infile}.$$" -out "${outfile}" -pass pass:"$PASS"
+    rm -f "${infile}.$$"
+    echo "Decrypted: $infile -> $outfile"
+
+fi
+

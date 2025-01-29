@@ -28,7 +28,7 @@ return {
     require('plugins.lsp_config'),                  -- LSP configuration
     require('plugins.luasnip'),                     -- Snip engine
     require('plugins.cmp'),                         -- Completion engine
---    require('plugins.configs.copilot_cmp'),         -- Prettify the LSP suggestion panel
+    require('plugins.copilot_cmp'),         -- Prettify the LSP suggestion panel
     require('plugins.lspkind'),                     -- Prettify the LSP suggestion panel
 --  require('plugins.cmp_lsp'),
 --  require('plugins.nvim_dap_ui'),

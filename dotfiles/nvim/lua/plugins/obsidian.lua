@@ -59,6 +59,7 @@ return {
                     opts = { buffer = true, expr = true },
                 }
             },
+
             picker = {
                 -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.
                 name = "telescope.nvim",
@@ -77,6 +78,14 @@ return {
                     insert_tag = "<C-l>",
                 },
             },
+
+            follow_url_func = function(url)
+                if vim.fn.executable(Env_Wsl_Clip) then
+                    vim.fn.system(Env_Wsl_Clip, url)
+                    vim.notify("URL copied to clipboard: " .. url)
+                end
+            end,
+
             -- Optional, sort search results by "path", "modified", "accessed", or "created".
             -- The recommend value is "modified" and `true` for `sort_reversed`, which means, for example,
             -- that `:ObsidianQuickSwitch` will show the notes sorted by latest modified time

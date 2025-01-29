@@ -10,31 +10,42 @@ return {
     lazy = false,
     config = function()
 
+        local lspconfig = require('lspconfig')
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Ensure that 'nvim-lspconfig' plugin is installed
-require('lspconfig').lua_ls.setup {
-    capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
+        require('mason').setup()
+        local mason_lspconfig = require('mason-lspconfig')
+
+        mason_lspconfig.setup {
+          ensure_installed = { 'pyright' }
+        }
+
+        lspconfig.pyright.setup {
+            capabilities = capabilities
+        }
+
+        lspconfig.lua_ls.setup {
+            capabilities = capabilities,
+            settings = {
+                Lua = {
+                    runtime = {
+                        -- Tell the language server which version of Lua you're using
+                        version = 'LuaJIT',
+                    },
+                    diagnostics = {
+                        -- Get the language server to recognize the `vim` global
+                        globals = {'vim'},
+                    },
+                    workspace = {
+                        -- Make the server aware of Neovim runtime files
+                        library = vim.api.nvim_get_runtime_file("", true),
+                    },
+                    telemetry = {
+                        enable = false,
+                    },
+                },
+            },
+        }
     end
 }
 

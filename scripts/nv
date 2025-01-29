@@ -27,7 +27,7 @@ if [ "$1" = "status" ]; then
         echo "status: home-manager mode"
     else
         echo "status: dev mode"
-        diff -rx lazy-lock.json "${HOME}/.config/nvim" "${HMGR}/dotfiles/nvim"
+        diff -r "${HOME}/.config/nvim" "${HMGR}/dotfiles/nvim"
     fi
 
 elif [ "$1" = "dev" ]; then

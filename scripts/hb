@@ -58,12 +58,6 @@ if [ "$1" = "switch" ]; then
     nix flake update
     home-manager --flake ".#${USER}" switch
 
-    if [ ! -f "${HOME}/.config/nvim/lazy-lock.json" ]; then
-        echo "Creating lazy lock for nvim"
-        cp "${HOME}/.config/nvim/lazy-lock-vcs.json" "${HOME}/.config/nvim/lazy-lock.json"
-        chmod 644 "${HOME}/.config/nvim/lazy-lock.json"
-    fi
-
 elif [ "$1" = "generations" ]; then
 	cd "${HMGR}"
 	home-manager --flake ".#${USER}" generations | awk '{printf "\033[36m%4d\033[0m -> %s %s\n", $5, $1, $2}'

@@ -1,4 +1,4 @@
-{ pkgs, root, home, username, promptColour, noteVault, copilotEnabled, ... }: 
+{ pkgs, root, home, username, promptColour, noteVault, openingNote, copilotEnabled, ... }: 
 
 let
 
@@ -28,6 +28,7 @@ let
             sed -i "s|{{ config.homeDirectory }}|${home}/${username}|g" "$f"
             sed -i "s|{{ config.promptColour }}|${promptColour}|g" "$f"
             sed -i "s|{{ config.noteVault }}|${noteVault}|g" "$f"
+            sed -i "s|{{ config.openingNote }}|${openingNote}|g" "$f"
             sed -i "s|{{ config.copilotEnabled }}|${boolToString(copilotEnabled)}|g" "$f"
 
             # Remove the old .template file

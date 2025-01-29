@@ -3,6 +3,7 @@
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = { "folke/noice.nvim", 'nvim-tree/nvim-web-devicons', opt = true },
+    lazy = false,
     config = function()
 
         -- Require the existing theme

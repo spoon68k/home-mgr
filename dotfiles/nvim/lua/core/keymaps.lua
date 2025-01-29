@@ -5,7 +5,18 @@ vim.api.nvim_set_keymap("", "Y", 'Y', { noremap=true })
 -- Explorer (Tree) Navigation (other mappings in config)
 vim.api.nvim_set_keymap("n", "e", ":NvimTreeToggle<enter>", { noremap=false })
 
+-- Clear selection
 vim.api.nvim_set_keymap("n", "<leader>/", ":noh<enter>", { noremap=false })
+
+-- Obsidian tags
+vim.api.nvim_set_keymap("n", "<leader>zz", ":ObsidianToday<enter>", { noremap=false })
+vim.api.nvim_set_keymap("n", "<leader>zt", ":ObsidianTags<enter>", { noremap=false })
+vim.api.nvim_set_keymap("n", "<leader>zn", ":ObsidianNew<enter>", { noremap=false })
+vim.api.nvim_set_keymap("n", "<leader>zl", ":ObsidianLinks<enter>", { noremap=false })
+vim.api.nvim_set_keymap("v", "<leader>zl", ":ObsidianLink<enter>", { noremap=false })
+vim.api.nvim_set_keymap("n", "<leader>zd", ":ObsidianDailies<enter>", { noremap=false })
+vim.api.nvim_set_keymap("n", "<leader>zs", ":ObsidianQuickSwitch<enter>", { noremap=false })
+vim.api.nvim_set_keymap("n", "<leader>zh", ":ObsidianQuickSwitch " .. Env_Opening_Note .. "<enter>", { noremap=false })
 
 -- vim.api.nvim_set_keymap("i", "jj", "<Esc>", {noremap=false})
 -- -- twilight

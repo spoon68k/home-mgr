@@ -29,7 +29,7 @@ return {
           snippet = {
             -- REQUIRED: You must specify a snippet engine
             expand = function(args)
-              require('luasnip').lsp_expand(args.body)  -- For LuaSnip users
+              lspkind.lsp_expand(args.body)  -- For LuaSnip users
             end,
           },
 

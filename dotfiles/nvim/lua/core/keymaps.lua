@@ -18,6 +18,9 @@ vim.api.nvim_set_keymap("n", "<leader>zd", ":ObsidianDailies<enter>", { noremap=
 vim.api.nvim_set_keymap("n", "<leader>zs", ":ObsidianQuickSwitch<enter>", { noremap=false })
 vim.api.nvim_set_keymap("n", "<leader>zh", ":ObsidianQuickSwitch " .. Env_Opening_Note .. "<enter>", { noremap=false })
 
+-- Relative line number switcher
+vim.api.nvim_set_keymap("n", "<leader>rl", ":ToggleRelativeLineNumbers<enter>", { noremap=false })
+
 -- vim.api.nvim_set_keymap("i", "jj", "<Esc>", {noremap=false})
 -- -- twilight
 -- vim.api.nvim_set_keymap("n", "tw", ":Twilight<enter>", {noremap=false})

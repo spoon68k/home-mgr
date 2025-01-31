@@ -13,6 +13,7 @@
         dig                  # dns command line tool
         docker               # container manager
         docker-compose       # container orchestration manager
+        dos2unix             # useful conversion tool
         delta                # pager for git
         direnv               # load and unload environments dynamically
         dive                 # explore docker layers

@@ -49,6 +49,7 @@ return {
 --  require('plugins.codeium'),
 --  require('plugins.codesnap'),
     require('plugins.autopairs'),
+--  require('plugins.calendar_nav'),
     require('plugins.comment'),
     require('plugins.sort'),
     require('plugins.tabular'),

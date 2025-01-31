@@ -55,6 +55,20 @@ return {
                 -- Instead of true it can also be a list of languages
                 additional_vim_regex_highlighting = false
             },
+
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    -- Start selection (select current node)
+                    init_selection = "vv",
+                    -- Expand selection to the next node
+                    node_incremental = "vv",
+                    -- Expand selection to the “scope” (e.g., function/block)
+                    scope_incremental = "vv",
+                    -- Shrink (decrement) selection
+                    node_decremental = "vx",
+                },
+            },
         }
     end
 }

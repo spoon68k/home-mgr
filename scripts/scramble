@@ -64,7 +64,7 @@ fi
 if [[ "$decrypt_mode" == "no" ]]; then
 
     openssl enc -aes-256-ctr -pbkdf2 -salt -in "${infile}" -out "${outfile}.$$" -pass pass:"$PASS"
-    dd if="${outfile}.$$" of="${outfile}" bs=1 skip=8 2>/dev/null
+    dd if="${outfile}.$$" of="${outfile}" bs=16k skip=8 iflag=skip_bytes 2>/dev/null
     rm -f "${outfile}.$$"
     echo "Encrypted: $infile -> $outfile"
 

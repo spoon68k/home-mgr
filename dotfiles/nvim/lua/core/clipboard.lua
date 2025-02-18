@@ -20,17 +20,3 @@ if vim.fn.executable(Env_Wsl_Clip) and vim.fn.executable(Env_Wsl_PowerShell) the
     }
 
 end
-
---   local opts = {
---     callback = function()
---       if vim.v.event.operator ~= "y" then
---         return
---       end
---       vim.fn.system(Env_Wsl_Clip, vim.fn.getreg(0))
---     end
---   }
--- 
---   opts.group = vim.api.nvim_create_augroup("WSLYank", {})
---   vim.api.nvim_create_autocmd("TextYankPost", { group = opts.group, callback = opts.callback })
--- end
-

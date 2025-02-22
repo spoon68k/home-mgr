@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+export NVIM_AUTOSAVE=1000
+
 cd "{{ config.homeDirectory }}/{{ config.noteVault }}"
+
 nvim "{{ config.openingNote }}"
 

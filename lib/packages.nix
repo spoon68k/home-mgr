@@ -10,6 +10,7 @@
         coreutils            # basic gnu binaries
         cowsay               # say hi with cows
         devenv               # dev environment utils
+        dialog               # menu utility
         dig                  # dns command line tool
         docker               # container manager
         docker-compose       # container orchestration manager

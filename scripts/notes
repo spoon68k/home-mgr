@@ -1,8 +1,50 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 export NVIM_AUTOSAVE=1000
+export VAULTS='{{ config.obsidianVaults }}'
 
-cd "{{ config.homeDirectory }}/{{ config.noteVault }}"
+# Extract keys from the JSON file
+keys=( $(echo "$VAULTS" | jq -r 'keys[]') )
+if [ ${#keys[@]} -eq 0 ]; then
+    echo "No vaults defined"
+    exit 1
+fi
 
-nvim "{{ config.openingNote }}"
+# If we just have one vault, then select it - otherwise open dialog box
+if [ ${#keys[@]} -eq 1 ]; then
+    selection="$(echo "$VAULTS" | jq -r 'keys[]')"
+
+else
+    #
+    # Build the menu items array (key as tag, file path as description)
+    menu_items=()
+    for key in "${keys[@]}"; do
+        filepath=$(echo "$VAULTS" | jq -r --arg key "$key" '.[$key]')
+        menu_items+=("$key" "$filepath")
+    done
+    
+    # Create a temporary file for capturing the dialog output
+    tmpfile=$(mktemp /tmp/dialog.XXXX)
+    
+    # Display the dialog menu
+    dialog --clear --title "File Chooser" \
+           --menu "Select a file to open in nvim:" 15 60 4 \
+           "${menu_items[@]}" 2> "$tmpfile"
+    clear
+    
+    # Check if the user cancelled
+    if [ $? -ne 0 ]; then
+      rm -f "$tmpfile"
+      exit 0
+    fi
+    
+    # Read the selected key and remove the temporary file
+    selection=$(<"$tmpfile")
+    rm -f "$tmpfile"
+fi 
+
+# Get the corresponding file path and open in nvim
+filepath="$(echo "$VAULTS" | jq -r --arg key "$selection" '.[$key]')"
+cd "{{ config.homeDirectory }}/${filepath%/*}"
+nvim "${filepath##*/}"
 

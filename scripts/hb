@@ -23,11 +23,18 @@ if [ ! -f "${HMGR}/flake.nix" ]; then
   outputs = { self, hmgr, ... }:
     {
       homeConfigurations = {
-        <username> = hmgr.homeModule {
-          system = "x86_64-linux"
-          username = "<username>";
-          git-profile = "<profile>";
-          gui-packages = false|true;
+        USERNAME = hmgr.homeModule {
+          home = "/home";
+          username = "USERNAME";
+          system = "x86_64-linux";
+          promptColour = "#61AFEF";
+          gitProfile = "PROFILE";
+          gfxPackages = false|true;
+          copilotEnabled = false|true;
+          obsidianVaults = {
+            "notes" = "vaults/notes/welcome.md";
+            "systems" = "vaults/systems/welcome.md";
+          };
         };
       };
     };

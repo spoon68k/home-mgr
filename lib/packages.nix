@@ -1,4 +1,4 @@
-{ pkgs, root, home, username, gfxPackages, noteVault, openingNote, ... }: let
+{ pkgs, root, home, username, gfxPackages, obsidianVaults, ... }: let
 
     defaultPackages = with pkgs; [
         any-nix-shell        # zsh support for nix shell
@@ -23,7 +23,6 @@
         feh                  # image viewer
         file                 # file type tool
         fzf                  # fuzzy file finder
-        gcc                  # c compiler
         gh                   # github client
         git                  # ubiqitious version control system
         gitui                # interactive git tool
@@ -99,9 +98,8 @@
 
         (pkgs.writeScriptBin "notes"
             (builtins.replaceStrings ["\{\{ config.homeDirectory \}\}"] ["${home}/${username}"]
-            (builtins.replaceStrings ["\{\{ config.noteVault \}\}"] [noteVault]
-            (builtins.replaceStrings ["\{\{ config.openingNote \}\}"] [openingNote]
-            (builtins.readFile "${root}/scripts/notes")))))
+            (builtins.replaceStrings ["\{\{ config.obsidianVaults \}\}"] [(builtins.toJSON obsidianVaults)]
+            (builtins.readFile "${root}/scripts/notes"))))
     ];
 
 in {

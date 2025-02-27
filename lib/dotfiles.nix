@@ -1,10 +1,15 @@
-{ pkgs, root, home, username, promptColour, noteVault, openingNote, copilotEnabled, ... }: 
+{ pkgs, root, home, username, promptColour, copilotEnabled, obsidianVaults, ... }: 
 
 let
 
     dotfiles = "${root}/dotfiles";
     
     boolToString = b: if b then "true" else "false";
+
+    setToLuaTable = attrs: "{" + builtins.concatStringsSep ", " (
+      map (k: k + " = '" + attrs.${k} + "'")
+          (builtins.attrNames attrs)
+    ) + "}";
 
     # A small derivation to:
     #   1. Copy `dotfiles` into $out
@@ -27,9 +32,8 @@ let
             sed -i "s|{{ config.username }}|${username}|g" "$f"
             sed -i "s|{{ config.homeDirectory }}|${home}/${username}|g" "$f"
             sed -i "s|{{ config.promptColour }}|${promptColour}|g" "$f"
-            sed -i "s|{{ config.noteVault }}|${noteVault}|g" "$f"
-            sed -i "s|{{ config.openingNote }}|${openingNote}|g" "$f"
             sed -i "s|{{ config.copilotEnabled }}|${boolToString(copilotEnabled)}|g" "$f"
+            sed -i "s|{{ config.obsidianVaults }}|${setToLuaTable(obsidianVaults)}|g" "$f"
 
             # Remove the old .template file
             mv "$f" "$n"

@@ -1,4 +1,10 @@
 
+-- Convert the config table to the desired workspaces format
+local workspaces = {}
+for name, note in pairs(Env_Obsidian_Vaults) do
+  table.insert(workspaces, { name = name, path = Env_Home .. '/' .. note })
+end
+
 return {
     "epwalsh/obsidian.nvim",
     version = "*",  -- recommended, use latest release instead of latest commit
@@ -9,12 +15,7 @@ return {
     },
     config = function ()
         require("obsidian").setup({
-            workspaces = {
-                {
-                   name = "Notes",
-                   path = Env_Home .. "/" .. Env_Note_Vault
-                },
-            },
+            workspaces = workspaces,
             daily_notes = {
                 -- Optional, if you keep daily notes in a separate directory.
                 folder = "dailies",

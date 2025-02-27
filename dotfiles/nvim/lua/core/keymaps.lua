@@ -16,7 +16,6 @@ vim.api.nvim_set_keymap("n", "<leader>zl", ":ObsidianLinks<enter>", { noremap=fa
 vim.api.nvim_set_keymap("v", "<leader>zl", ":ObsidianLink<enter>", { noremap=false })
 vim.api.nvim_set_keymap("n", "<leader>zd", ":ObsidianDailies<enter>", { noremap=false })
 vim.api.nvim_set_keymap("n", "<leader>zs", ":ObsidianQuickSwitch<enter>", { noremap=false })
-vim.api.nvim_set_keymap("n", "<leader>zh", ":ObsidianQuickSwitch " .. Env_Opening_Note .. "<enter>", { noremap=false })
 vim.api.nvim_set_keymap("n", "<leader>zc", ":CalendarNav<enter>", { noremap=false })
 
 -- Relative line number switcher

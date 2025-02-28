@@ -23,6 +23,7 @@
         feh                  # image viewer
         file                 # file type tool
         fzf                  # fuzzy file finder
+        gcc                  # compiler (used for nvim plugins amongst other things)
         gh                   # github client
         git                  # ubiqitious version control system
         gitui                # interactive git tool

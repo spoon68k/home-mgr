@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-export NVIM_AUTOSAVE=1000
 export VAULTS='{{ config.obsidianVaults }}'
 
 # Extract keys from the JSON file
@@ -46,5 +45,9 @@ fi
 # Get the corresponding file path and open in nvim
 filepath="$(echo "$VAULTS" | jq -r --arg key "$selection" '.[$key]')"
 cd "{{ config.homeDirectory }}/${filepath%/*}"
+
+export NVIM_AUTOSAVE=1000
+export NVIM_ACTIVE_VAULT="$selection"
+
 nvim "${filepath##*/}"
 

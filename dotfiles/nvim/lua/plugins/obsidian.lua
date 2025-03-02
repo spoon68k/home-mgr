@@ -2,7 +2,9 @@
 -- Convert the config table to the desired workspaces format
 local workspaces = {}
 for name, note in pairs(Env_Obsidian_Vaults) do
-  table.insert(workspaces, { name = name, path = Env_Home .. '/' .. note })
+    if vim.env.NVIM_ACTIVE_VAULT == name then
+        table.insert(workspaces, { name = name, path = Env_Home .. '/' .. note })
+    end
 end
 
 return {

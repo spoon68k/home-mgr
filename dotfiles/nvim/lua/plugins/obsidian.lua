@@ -7,6 +7,12 @@ for name, note in pairs(Env_Obsidian_Vaults) do
     end
 end
 
+-- If there is no selection (or it is invalid), disable the plug-in
+if next(workspaces) == nil then
+    return {}
+end
+
+-- Setup for the chosen workspace (vault)
 return {
     "epwalsh/obsidian.nvim",
     version = "*",  -- recommended, use latest release instead of latest commit
